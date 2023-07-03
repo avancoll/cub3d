@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/03 18:18:08 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:46:58 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,19 @@ enum
 	BUFFER_SIZE = 10000
 };
 
+typedef struct s_key
+{
+	int		offset_x;
+	int		offset_y;
+	int		mv_forward;
+	int		mv_backward;
+	int		mv_left;
+	int		mv_right;
+}			t_key;
+
 typedef struct s_mlx_data
 {
+	t_key	*key;
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
@@ -79,5 +90,11 @@ typedef struct s_mlx_data
 
 void		mlx_put_pixel(t_mlx_data *data, int x, int y, int color);
 void		mlx_handler(t_mlx_data *data);
+int			key_pressed(int keycode, t_mlx_data *data);
+int			key_released(int keycode, t_mlx_data *data);
+int			exec_move(t_mlx_data *data);
+int			ft_close(t_mlx_data *data);
+
+
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/03 18:43:02 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:53:54 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	main(int argc, char **argv)
 	(void)argv;
 	mlx_handler(&data);
 	mlx_hook(data.win_ptr, ON_DESTROY, 0, ft_close, &data);
-	// mlx_hook(data.win_ptr, ON_KEYUP, 0, key_released, &data);
-	// mlx_hook(data.win_ptr, ON_KEYDOWN, 0, key_pressed, &data);
-	// mlx_loop_hook(data.mlx_ptr, exec_move, &data);
+	mlx_hook(data.win_ptr, ON_KEYUP, 0, key_released, &data);
+	mlx_hook(data.win_ptr, ON_KEYDOWN, 0, key_pressed, &data);
+	mlx_loop_hook(data.mlx_ptr, exec_move, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }
