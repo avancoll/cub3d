@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/03 17:37:27 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:39:24 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ enum {
 	BUFFER_SIZE = 10000
 };
 
-typedef struct s_data
+typedef struct s_mlx_data
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -72,9 +72,9 @@ typedef struct s_data
 	int		bits_pixel;
 	int		size_line;
 	int		endian;
-}			t_data;
+}			t_mlx_data;
 
-void	mlx_put_pixel(t_data *data, int x, int y, int color);
-void	mlx_handler(t_data *data);
+void	mlx_put_pixel(t_mlx_data *data, int x, int y, int color);
+void	mlx_handler(t_mlx_data *data);
 
 #endif
