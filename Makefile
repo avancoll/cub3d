@@ -9,50 +9,39 @@
 #             ░░░░░░    ░░░░░░░░ ░░░░░░░░   ░░░░░░░░  ░░░░░░░░░░   				#
 # ============================================================================= #
                                                       
-NAME		= cub3D.a
-
-NAME_BONUS	= cub3D_bonus.a
-
-EXEC		= cub3D
-
-EXEC_BONUS	= cub3D_bonus
+NAME		= cub3D
 
 # ============================================================================= #
 
-SRC			=	
-
-SRCS_BONUS	=	
+SRC			= cub.c mlx_handler.c \
 
 # ============================================================================= #
 
-SRCS = $(addprefix srcs/, $(SRC))
+SRCS		= $(addprefix srcs/, $(SRC))
 
 OBJS		= $(SRCS:.c=.o)
 
-OBJS_BONUS	= $(SRCS_BONUS:.c=.o)
+# ============================================================================= #
+
+LDFLAGS		= -lmlx -framework OpenGL -framework AppKit
+
+# ============================================================================= #
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -I./includes/ -Imlx 
 
 RM			= rm -f
 
 .c.o:
-	$(CC) $(CFLAGS) -Imlx -c -I./ $< -o ${<:.c=.o}
+	$(CC) $(CFLAGS) -Imlx -c $< -o ${<:.c=.o}
 
 $(NAME):	$(OBJS)
-	ar -rc $(NAME) $(OBJS)
-	$(CC) -lmlx -framework OpenGL -framework AppKit $(NAME) -o $(EXEC) -lm
-
-$(NAME_BONUS):	$(OBJS_BONUS)
-	ar -rc $(NAME_BONUS) $(OBJS_BONUS)
-	$(CC) -lmlx -framework OpenGL -framework AppKit $(NAME_BONUS) -o $(EXEC_BONUS) -lm -O2 -O3 -Os
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 # ============================================================================= #
 
 all:	$(NAME)
-
-bonus:	$(NAME_BONUS)
 
 clean:
 	$(RM) $(OBJS)
@@ -63,7 +52,6 @@ fclean:	clean
 	$(RM) $(NAME_BONUS) $(EXEC_BONUS)
 
 re:	fclean all
-
 
 .PHONY:	all clean fclean re
 

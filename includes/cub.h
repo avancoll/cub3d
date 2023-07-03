@@ -6,21 +6,22 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/03 17:39:24 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:18:08 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
+# include <fcntl.h>
+# include <math.h>
+# include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <fcntl.h>
-# include <math.h>
-# include "mlx.h"
 
-enum {
+enum
+{
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
 	ON_MOUSEDOWN = 4,
@@ -30,7 +31,8 @@ enum {
 	ON_DESTROY = 17
 };
 
-enum {
+enum
+{
 	KEY_ESC = 53,
 	KEY_W = 13,
 	KEY_A = 0,
@@ -57,7 +59,8 @@ enum {
 	KEY_TAB = 48
 };
 
-enum {
+enum
+{
 	SIZE_X = 1920,
 	SIZE_Y = 1080,
 	BUFFER_SIZE = 10000
@@ -74,7 +77,7 @@ typedef struct s_mlx_data
 	int		endian;
 }			t_mlx_data;
 
-void	mlx_put_pixel(t_mlx_data *data, int x, int y, int color);
-void	mlx_handler(t_mlx_data *data);
+void		mlx_put_pixel(t_mlx_data *data, int x, int y, int color);
+void		mlx_handler(t_mlx_data *data);
 
 #endif
