@@ -1,0 +1,17 @@
+==========================parser==========================
+
+texture:
+	NO - SO - WE - EA
+
+Couleur sol et plafond:
+	F - C /!\ overflow
+
+-----MAP-----
+
+Player pos and facing:
+	N-S-E-W
+
+Mur plein ou vide:
+	0-1
+
+==========================================================

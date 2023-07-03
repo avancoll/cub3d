@@ -17,17 +17,30 @@ SRCS		= cub.c \
 
 MLX			= mlx_handler.c \
 
+GNL			= get_next_line.c get_next_line_utils.c \
+
+LIBFT		= ft_memcpy.c ft_split.c ft_strcmp.c ft_strdup.c ft_strlen.c \
+				ft_substr.c \
+
+MAP			= parsing.c \
+
 # ============================================================================= #
 
 BASE_SRC	= $(addprefix srcs/, $(SRCS))
 MLX_SRC		= $(addprefix srcs/mlx/, $(MLX))
+GNL_SRC		= $(addprefix srcs/gnl/, $(GNL))
+LIBFT_SRC	= $(addprefix srcs/libft/, $(LIBFT))
+MAP_SRC		= $(addprefix srcs/gnl/, $(MAP))
 
 # ============================================================================= #
 
-BASE_OBJS		= $(BASE_SRC:.c=.o)
-MLX_OBJS		= $(MLX_SRC:.c=.o)
+BASE_OBJS	= $(BASE_SRC:.c=.o)
+MLX_OBJS	= $(MLX_SRC:.c=.o)
+GNL_OBJS	= $(GNL_SRC:.c=.o)
+LIBFT_OBJS	= $(LIBFT_SRC:.c=.o)
+MAP_OBJS	= $(MAP_SRC:.c=.o)
 
-ALL_OBJS		= $(BASE_OBJS) $(MLX_OBJS)
+ALL_OBJS	= $(BASE_OBJS) $(MLX_OBJS) $(GNL_OBJS) $(LIBFT_OBJS) $(MAP_OBJS)
 
 # ============================================================================= #
 
