@@ -13,13 +13,21 @@ NAME		= cub3D
 
 # ============================================================================= #
 
-SRC			= cub.c mlx_handler.c \
+SRCS		= cub.c \
+
+MLX			= mlx_handler.c \
 
 # ============================================================================= #
 
-SRCS		= $(addprefix srcs/, $(SRC))
+BASE_SRC	= $(addprefix srcs/, $(SRCS))
+MLX_SRC		= $(addprefix srcs/mlx/, $(MLX))
 
-OBJS		= $(SRCS:.c=.o)
+# ============================================================================= #
+
+BASE_OBJS		= $(BASE_SRC:.c=.o)
+MLX_OBJS		= $(MLX_SRC:.c=.o)
+
+ALL_OBJS		= $(BASE_OBJS) $(MLX_OBJS)
 
 # ============================================================================= #
 
@@ -36,20 +44,18 @@ RM			= rm -f
 .c.o:
 	$(CC) $(CFLAGS) -Imlx -c $< -o ${<:.c=.o}
 
-$(NAME):	$(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
+$(NAME):	$(ALL_OBJS)
+	$(CC) $(CFLAGS) $(ALL_OBJS) $(LDFLAGS) -o $(NAME)
 
 # ============================================================================= #
 
 all:	$(NAME)
 
 clean:
-	$(RM) $(OBJS)
-	$(RM) $(OBJS_BONUS)
+	$(RM) $(ALL_OBJS)
 
 fclean:	clean
-	$(RM) $(NAME) $(EXEC)
-	$(RM) $(NAME_BONUS) $(EXEC_BONUS)
+	$(RM) $(NAME)
 
 re:	fclean all
 
