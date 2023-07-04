@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/04 12:24:09 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/04 12:56:40 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	ft_close(t_mlx_data *data)
 	exit(0);
 }
 
-int	open_map(char *str, t_mlx_data *data)
+int	open_map(char *str)
 {
 	int	fd;
 
 	if (ft_strlen(str) > 4)
 	{
-		if (!ft_strcmp(str + ft_strlen(str) - 4, ".cub"))
+		if (ft_strcmp(str + ft_strlen(str) - 4, ".cub"))
 		{
 			write(2, "Error: Wrong file extension\n", 29);
 			return (1);
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 {
 	t_mlx_data data;
 
-	if (argc != 2 || open_map(argv[1], &data))
+	if (argc != 2 || open_map(argv[1]))
 		return (1);
 	mlx_handler(&data);
 	mlx_hook(data.win_ptr, ON_DESTROY, 0, ft_close, &data);
