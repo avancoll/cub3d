@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/04 15:49:01 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:53:06 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,11 @@ t_map	*parser(int fd)
 	i = 6;
 	lst = NULL;
 	map = map_init();
-	if (!map)
+	if (!map || fd < 0)
+	{
+		perror("cub3D");
 		return (NULL);
+	}
 	while (i-- >= 0)
 	{
 		line = get_next_line(fd);
