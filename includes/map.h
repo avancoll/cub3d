@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:06:13 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/04 14:54:28 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:58:14 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "get_next_line.h"
 # include "libft.h"
+# include <stdio.h>
 
 typedef struct s_map
 {

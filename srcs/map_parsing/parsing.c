@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/04 15:53:06 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:57:52 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,6 @@ static t_map	*map_init(void)
 	return (map);
 }
 
-static int	data_color_filler(t_map *map, char **str_line)
-{
-	if (ft_strcmp(str_line[0], "F"))
-	{
-		if (!(map->floor & (255 << 24)))
-			return (-1);
-		map->floor = color_converter(str_line[1]);
-	}
-	else if (ft_strcmp(str_line[0], "C"))
-	{
-		if (!(map->ceiling & (255 << 24)))
-			return (-1);
-		map->ceiling = color_converter(str_line[1]);
-	}
-	return (0);
-}
-
 static void	double_free(char **tab)
 {
 	int	i;
@@ -56,17 +39,7 @@ static void	double_free(char **tab)
 	free(tab);
 }
 
-void	ft_t_map_free(t_map *map)
-{
-	free(map->texture_no);
-	free(map->texture_so);
-	free(map->texture_we);
-	free(map->texture_ea);
-	double_free(map->map);
-	free(map);
-}
-
-static int	color_converter(char *str)
+static unsigned int	color_converter(char *str)
 {
 	char	**colors;
 	int		col;
@@ -92,6 +65,33 @@ static int	color_converter(char *str)
 	}
 	double_free(colors);
 	return (col);
+}
+
+static int	data_color_filler(t_map *map, char **str_line)
+{
+	if (ft_strcmp(str_line[0], "F"))
+	{
+		if (!(map->floor & (255 << 24)))
+			return (-1);
+		map->floor = color_converter(str_line[1]);
+	}
+	else if (ft_strcmp(str_line[0], "C"))
+	{
+		if (!(map->ceiling & (255 << 24)))
+			return (-1);
+		map->ceiling = color_converter(str_line[1]);
+	}
+	return (0);
+}
+
+void	ft_t_map_free(t_map *map)
+{
+	free(map->texture_no);
+	free(map->texture_so);
+	free(map->texture_we);
+	free(map->texture_ea);
+	double_free(map->map);
+	free(map);
 }
 
 static int	data_filler(t_map *map, char **str_line)
@@ -126,7 +126,7 @@ static int	data_filler(t_map *map, char **str_line)
 static void	map_filler(t_map *map, t_list *lst)
 {
 	t_list	*tmp_lst;
-	int		max_len;
+	size_t	max_len;
 	int		i;
 
 	i = 0;
