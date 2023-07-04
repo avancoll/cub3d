@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 13:52:41 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/04 14:36:06 by jusilanc         ###   ########.fr       */
+/*   Created: 2023/07/04 15:18:56 by jusilanc          #+#    #+#             */
+/*   Updated: 2023/07/04 15:19:30 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+#include "libft.h"
+
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	if (!lst || !del)
+		return ;
+	del(lst->content);
+	free(lst);
 }
 
-int	is_all_digit(char *str)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	int	i;
+	t_list	*ptr;
+	t_list	*tmp;
 
-	i = 0;
-	while (str && str[i])
-		if (!ft_isdigit(str[i++]))
-			return (0);
-	return (1);
+	if (!lst || !*lst || !del)
+		return ;
+	tmp = NULL;
+	ptr = *lst;
+	while (ptr)
+	{
+		tmp = ptr->next;
+		ft_lstdelone(ptr, (*del));
+		ptr = tmp;
+	}
+	*lst = NULL;
 }

@@ -21,6 +21,7 @@ GNL			= get_next_line.c get_next_line_utils.c \
 
 LIBFT		= ft_memcpy.c ft_split.c ft_strcmp.c ft_strdup.c ft_strlen.c \
 				ft_substr.c ft_strtrim.c ft_atoi.c ft_isdigit.c \
+				ft_lstadd_back.c ft_lstclear.c ft_lstnew.c \
 
 MAP			= parsing.c \
 

@@ -1,41 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 01:05:56 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/04 15:41:40 by jusilanc         ###   ########.fr       */
+/*   Created: 2023/07/04 15:18:31 by jusilanc          #+#    #+#             */
+/*   Updated: 2023/07/04 15:32:23 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+int	ft_lstsize(t_list *lst)
 {
-	size_t			i;
-	unsigned char	*ptr;
+	int	i;
 
-	ptr = b;
 	i = 0;
-	while (ptr && i < len)
-		ptr[i++] = c;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}
+
+t_list	*ft_lstlast(t_list *lst)
+{
+	t_list	*ptr;
+
+	ptr = NULL;
+	while (lst)
+	{
+		ptr = lst;
+		lst = lst->next;
+	}
 	return (ptr);
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	unsigned char	*dest;
-	unsigned char	*str;
-	size_t			i;
-
-	i = -1;
-	dest = (unsigned char *)dst;
-	str = (unsigned char *)src;
-	if (!n || dest == src)
-		return (dest);
-	while (dest && str && ++i < n)
-		dest[i] = str[i];
-	return (dest);
+	if (alst && *alst)
+		ft_lstlast(*alst)->next = new;
+	else if (alst)
+		*alst = new;
 }

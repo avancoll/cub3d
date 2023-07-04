@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:06:13 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/04 13:51:56 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:54:28 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,8 @@ typedef struct s_map
 	unsigned int	ceiling;
 	char			**map;
 }					t_map;
+
+void				ft_t_map_free(t_map *map);
+t_map				*parser(int fd);
 
 #endif
