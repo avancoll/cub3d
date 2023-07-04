@@ -20,7 +20,7 @@ MLX			= mlx_handler.c \
 GNL			= get_next_line.c get_next_line_utils.c \
 
 LIBFT		= ft_memcpy.c ft_split.c ft_strcmp.c ft_strdup.c ft_strlen.c \
-				ft_substr.c \
+				ft_substr.c ft_strtrim.c ft_atoi.c ft_isdigit.c \
 
 MAP			= parsing.c \
 
@@ -30,7 +30,7 @@ BASE_SRC	= $(addprefix srcs/, $(SRCS))
 MLX_SRC		= $(addprefix srcs/mlx/, $(MLX))
 GNL_SRC		= $(addprefix srcs/gnl/, $(GNL))
 LIBFT_SRC	= $(addprefix srcs/libft/, $(LIBFT))
-MAP_SRC		= $(addprefix srcs/gnl/, $(MAP))
+MAP_SRC		= $(addprefix srcs/map_parsing/, $(MAP))
 
 # ============================================================================= #
 

@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 21:36:51 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/03 21:37:03 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:45:05 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str && *str++)
-		i++;
-	return (i);
-}
 
 char	*ft_strchr(char *str, char c)
 {

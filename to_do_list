@@ -16,4 +16,5 @@ Mur plein ou vide:
 
 ==========================================================
 
-added: part of libft, get_next_line and map parsing file
+si void in map alors void is 2
+si flood fill meet 2 return -1

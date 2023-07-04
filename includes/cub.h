@@ -3,26 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/04 01:30:42 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:45:48 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
+# include "get_next_line.h"
+# include "libft.h"
+# include "map.h"
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-# include "get_next_line.h"
-# include "libft.h"
-# include "map.h"
 
 enum
 {
@@ -66,8 +65,7 @@ enum
 enum
 {
 	SIZE_X = 1920,
-	SIZE_Y = 1080,
-	BUFFER_SIZE = 10000
+	SIZE_Y = 1080
 };
 
 typedef struct s_key

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/03 18:47:08 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/03 18:56:20 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	key_released(int keycode, t_mlx_data *data)
 int	exec_move(t_mlx_data *data)
 {
 	if (data->key->mv_forward == 1)
-		;
+		write(1, "ford\n", 5);
 	if (data->key->mv_backward == 1)
 		;
 	if (data->key->mv_left == 1)
