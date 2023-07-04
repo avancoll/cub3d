@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/04 15:47:28 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:54:31 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int	ft_close(t_mlx_data *data)
 	exit(0);
 }
 
-int	open_map(char *str)
+int	filename_checker(char *str)
 {
-	int	fd;
-
 	if (ft_strlen(str) > 4)
 	{
 		if (ft_strcmp(str + ft_strlen(str) - 4, ".cub"))
@@ -37,13 +35,20 @@ int	open_map(char *str)
 	}
 	else
 		return (1);
+	return (0);
+}
+
+int	open_map(char *str)
+{
+	int	fd;
+
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("cub3D");
 		return (1);
 	}
-	return (0);
+	return (fd);
 }
 
 
@@ -51,8 +56,9 @@ int	main(int argc, char **argv)
 {
 	t_mlx_data data;
 
-	if (argc != 2 || open_map(argv[1]))
+	if (argc != 2 || filename_checker(argv[1]))
 		return (1);
+	data.map = parser(open_map(argv[1]));
 	mlx_handler(&data);
 	mlx_hook(data.win_ptr, ON_DESTROY, 0, ft_close, &data);
 	mlx_hook(data.win_ptr, ON_KEYUP, 0, key_released, &data);
