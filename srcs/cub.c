@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/04 12:56:40 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/04 15:47:28 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	open_map(char *str)
 			return (1);
 		}
 	}
+	else
+		return (1);
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 	{
