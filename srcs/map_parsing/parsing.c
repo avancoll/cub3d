@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/04 15:57:52 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:39:04 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ static unsigned int	color_converter(char *str)
 
 static int	data_color_filler(t_map *map, char **str_line)
 {
-	if (ft_strcmp(str_line[0], "F"))
+	if (!ft_strcmp(str_line[0], "F"))
 	{
 		if (!(map->floor & (255 << 24)))
 			return (-1);
 		map->floor = color_converter(str_line[1]);
 	}
-	else if (ft_strcmp(str_line[0], "C"))
+	else if (!ft_strcmp(str_line[0], "C"))
 	{
 		if (!(map->ceiling & (255 << 24)))
 			return (-1);
@@ -96,31 +96,52 @@ void	ft_t_map_free(t_map *map)
 
 static int	data_filler(t_map *map, char **str_line)
 {
-	if (ft_strcmp(str_line[0], "NO"))
+	// printf("[%s] [%s]\n", str_line[0], str_line[1]);
+	if (!ft_strcmp(str_line[0], "NO"))
 	{
 		if (map->texture_no)
 			return (-1);
 		map->texture_no = ft_strdup(str_line[1]);
 	}
-	else if (ft_strcmp(str_line[0], "SO"))
+	else if (!ft_strcmp(str_line[0], "SO"))
 	{
 		if (map->texture_so)
 			return (-1);
 		map->texture_so = ft_strdup(str_line[1]);
 	}
-	else if (ft_strcmp(str_line[0], "WE"))
+	else if (!ft_strcmp(str_line[0], "WE"))
 	{
 		if (map->texture_we)
 			return (-1);
 		map->texture_we = ft_strdup(str_line[1]);
 	}
-	else if (ft_strcmp(str_line[0], "EA"))
+	else if (!ft_strcmp(str_line[0], "EA"))
 	{
 		if (map->texture_ea)
 			return (-1);
 		map->texture_ea = ft_strdup(str_line[1]);
 	}
 	return (0);
+}
+
+static void	map_replacer(t_map *map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (map->map[y])
+	{
+		x = 0;
+		while (map->map[y][x])
+		{
+			if (map->map[y][x] == ' ')
+				map->map[y][x] = '2';
+			x++;
+		}
+		// printf("[%s]\n", map->map[y]);
+		y++;
+	}
 }
 
 static void	map_filler(t_map *map, t_list *lst)
@@ -138,20 +159,21 @@ static void	map_filler(t_map *map, t_list *lst)
 			max_len = ft_strlen(tmp_lst->content);
 		tmp_lst = tmp_lst->next;
 	}
-	map->map = (char **)malloc(sizeof(char *) * ft_lstsize(lst) + 1);
+	map->map = (char **)malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
 	if (!map->map)
 		return ;
 	tmp_lst = lst;
 	while (tmp_lst)
 	{
-		map->map[i] = (char *)malloc(sizeof(char) * max_len + 1);
+		map->map[i] = (char *)malloc(sizeof(char) * (max_len + 1));
 		ft_memset(map->map[i], '2', max_len);
-		map->map[max_len] = 0;
+		map->map[i][max_len] = 0;
 		ft_memcpy(map->map[i], tmp_lst->content, ft_strlen(tmp_lst->content));
 		tmp_lst = tmp_lst->next;
 		i++;
 	}
 	map->map[i] = NULL;
+	map_replacer(map);
 }
 
 t_map	*parser(int fd)
@@ -171,7 +193,7 @@ t_map	*parser(int fd)
 		perror("cub3D");
 		return (NULL);
 	}
-	while (i-- >= 0)
+	while (i-- > 0)
 	{
 		line = get_next_line(fd);
 		line_tmp = ft_strtrim(line, "\n ");
