@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_to_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:59:46 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/06 18:39:24 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:50:10 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	init_player(t_mlx_data *data)
 	data->ray->pos_y = player_pos.y;
 	data->ray->dir_x = -1;
 	data->ray->dir_y = 0;
+	data->ray->movespeed = 0.05;
+	data->ray->rotspeed = 0.05;
 	get_player_dir(&data->ray->dir_x, &data->ray->dir_y, &player_pos,
 			data->map->map);
 	data->ray->plane_x = 0;

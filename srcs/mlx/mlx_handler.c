@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/06 18:01:43 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:51:41 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,41 +60,7 @@ int	key_released(int keycode, t_mlx_data *data)
 	return (0);
 }
 
-#define screenWidth 640
-#define screenHeight 480
-#define texWidth 64
-#define texHeight 64
-#define mapWidth 24
-#define mapHeight 24
-
-int worldMap[mapWidth][mapHeight]=
-{
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,0,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
-int	raytracer(t_mlx_data *data, t_ray *ray)
+int	raytracer(t_mlx_data *data, t_ray *ray, int color1, int color2)
 {
 	int	x;
 
@@ -150,7 +116,7 @@ int	raytracer(t_mlx_data *data, t_ray *ray)
 				ray->map_y += ray->step_y;
 				ray->side = 1;
 			}
-			if (worldMap[ray->map_x][ray->map_y] > 0)
+			if (data->map->map[ray->map_y][ray->map_x] != '0')
 				ray->hit = 1;
 		}
 		if (ray->side == 0)
@@ -172,13 +138,12 @@ int	raytracer(t_mlx_data *data, t_ray *ray)
 	
 		int color;
 		if (ray->side == 1)
-			color = 0xFF0000;
+			color = color1;
 		else
-			color = 0x00FF00;
+			color = color2;
 		mlx_put_pixel(data, x, ray->draw_start, color);
 		mlx_put_pixel(data, x, ray->draw_end, color);
-		mlx_put_pixel(data, x, ray->draw_start + 1, color);
-		mlx_put_pixel(data, x, ray->draw_end - 1, color);
+		
 	}
 	return (0);
 }
@@ -186,15 +151,39 @@ int	raytracer(t_mlx_data *data, t_ray *ray)
 int	exec_move(t_mlx_data *data)
 {	
 	if (data->key->mv_forward == 1)
-		mlx_put_pixel(data, data->x, data->y--, 0xFF0000);
+	{
+		if(data->map->map[(int)(data->ray->pos_y)][(int)(data->ray->pos_x + data->ray->dir_x * data->ray->movespeed)] == '0')
+			data->ray->pos_x += data->ray->dir_x * data->ray->movespeed;
+		if(data->map->map[(int)(data->ray->pos_y + data->ray->dir_y * data->ray->movespeed)][(int)(data->ray->pos_x)] == '0')
+			data->ray->pos_y += data->ray->dir_y * data->ray->movespeed;
+	}
 	if (data->key->mv_backward == 1)
-		mlx_put_pixel(data, data->x, data->y++, 0xFF0000);
-	if (data->key->mv_left == 1)	
-		mlx_put_pixel(data, data->x--, data->y, 0xFF0000);
+	{
+		if(data->map->map[(int)(data->ray->pos_y)][(int)(data->ray->pos_x - data->ray->dir_x * data->ray->movespeed)] == '0')
+			data->ray->pos_x -= data->ray->dir_x * data->ray->movespeed;
+		if(data->map->map[(int)(data->ray->pos_y - data->ray->dir_y * data->ray->movespeed)][(int)(data->ray->pos_x)] == '0')
+			data->ray->pos_y -= data->ray->dir_y * data->ray->movespeed;
+	}
+	if (data->key->mv_left == 1)
+	{
+		double oldDirX = data->ray->dir_x;
+		data->ray->dir_x = data->ray->dir_x * cos(-data->ray->rotspeed) - data->ray->dir_y * sin(-data->ray->rotspeed);
+		data->ray->dir_y = oldDirX * sin(-data->ray->rotspeed) + data->ray->dir_y * cos(-data->ray->rotspeed);
+		double oldPlaneX = data->ray->plane_x;
+		data->ray->plane_x = data->ray->plane_x * cos(-data->ray->rotspeed) - data->ray->plane_y * sin(-data->ray->rotspeed);
+		data->ray->plane_y = oldPlaneX * sin(-data->ray->rotspeed) + data->ray->plane_y * cos(-data->ray->rotspeed);
+	}
 	if (data->key->mv_right == 1)
-		mlx_put_pixel(data, data->x++, data->y, 0xFF0000);
-	raytracer(data, data->ray);
-	printf("x = %d, y = %d\n", data->x, data->y);
+	{
+		double oldDirX = data->ray->dir_x;
+		data->ray->dir_x = data->ray->dir_x * cos(data->ray->rotspeed) - data->ray->dir_y * sin(data->ray->rotspeed);
+		data->ray->dir_y = oldDirX * sin(data->ray->rotspeed) + data->ray->dir_y * cos(data->ray->rotspeed);
+		double oldPlaneX = data->ray->plane_x;
+		data->ray->plane_x = data->ray->plane_x * cos(data->ray->rotspeed) - data->ray->plane_y * sin(data->ray->rotspeed);
+	 data->ray->plane_y = oldPlaneX * sin(data->ray->rotspeed) + data->ray->plane_y * cos(data->ray->rotspeed);
+	}
+	raytracer(data, data->ray, 0xFF0000, 0x00FF00);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
+	raytracer(data, data->ray, 0x000000, 0x000000);
 	return (0);
 }
