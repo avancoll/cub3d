@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/06 16:10:32 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:07:41 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	main(int argc, char **argv)
 	if (argc != 2 || filename_checker(argv[1]))
 		return (1);
 	data.map = parser(open_map(argv[1]));
+	if (!data.map)
+		return (1);
 	mlx_handler(&data);
 	init_player(&data);
 	data.key = malloc(sizeof(t_key));

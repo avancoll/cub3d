@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/06 14:35:41 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:35:47 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,32 @@ static t_map	*map_init(void)
 
 static unsigned int	color_converter(char *str)
 {
-	char	**colors;
+	char	**c;
 	int		col;
 	int		i;
 
-	i = 2;
+	i = 0;
 	col = 0;
-	colors = ft_split(str, ',');
-	if (!colors)
+	c = ft_split(str, ',');
+	if (!c)
 		return (-1);
-	if (ft_strlen(colors[0]) > 3 || ft_strlen(colors[1]) > 3
-		|| ft_strlen(colors[2]) > 3 || !is_all_digit(colors[0])
-		|| !is_all_digit(colors[1]) || !is_all_digit(colors[2]))
-		col = -1;
-	while (col != -1 && i >= 0)
+	while (col != -1 && c[i])
 	{
-		col = ft_atoi(colors[i]);
-		if (col > 255 || col < 0)
+		if (ft_strlen(c[i]) > 3 || !is_all_digit(c[i]) || ft_strlen(c[i]) == 0)
 			col = -1;
-		if (col != -1 && i > 0)
-			col = col << 8;
-		i--;
+		else
+		{
+			col = ft_atoi(c[i]);
+			if (col > 255 || col < 0 || i > 2)
+				col = -1;
+			if (col != -1 && i > 0)
+				col = col << 8;
+			i++;
+		}
 	}
-	double_free(colors);
+	if (i < 3)
+		col = -1;
+	double_free(c);
 	return (col);
 }
 
@@ -86,7 +89,6 @@ void	ft_t_map_free(t_map *map)
 
 static int	data_filler(t_map *map, char **str_line)
 {
-	// printf("[%s] [%s]\n", str_line[0], str_line[1]);
 	if (!ft_strcmp(str_line[0], "NO"))
 	{
 		if (map->texture_no)
@@ -129,7 +131,6 @@ static void	map_replacer(t_map *map)
 				map->map[y][x] = '2';
 			x++;
 		}
-		// printf("[%s]\n", map->map[y]);
 		y++;
 	}
 }
@@ -235,5 +236,11 @@ t_map	*parser(int fd)
 		free(line);
 	}
 	map_filler(map, lst);
+	if (check_parsing(map) == -1)
+	{
+		write(2, "ERROR MAP\n", 10);
+		ft_t_map_free(map);
+		return (NULL);
+	}
 	return (map);
 }

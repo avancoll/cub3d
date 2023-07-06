@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/06 16:47:44 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:07:07 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int	exec_move(t_mlx_data *data)
 	if (data->key->mv_right == 1)
 		mlx_put_pixel(data, data->x++, data->y, 0xFF0000);
 	raytracer(data, data->ray);
-	printf("x = %d, y = %d\n", data->x, data->y);
+	// printf("x = %d, y = %d\n", data->x, data->y);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 	return (0);
 }
