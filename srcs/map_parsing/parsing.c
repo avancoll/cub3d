@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/04 16:39:04 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/06 14:35:41 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,6 @@ static t_map	*map_init(void)
 	map->ceiling = (255 << 24);
 	map->map = NULL;
 	return (map);
-}
-
-static void	double_free(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab && tab[i])
-		free(tab[i++]);
-	free(tab);
 }
 
 static unsigned int	color_converter(char *str)

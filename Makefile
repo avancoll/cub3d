@@ -20,10 +20,10 @@ MLX			= mlx_handler.c \
 GNL			= get_next_line.c get_next_line_utils.c \
 
 LIBFT		= ft_memcpy.c ft_split.c ft_strcmp.c ft_strdup.c ft_strlen.c \
-				ft_substr.c ft_strtrim.c ft_atoi.c ft_isdigit.c \
-				ft_lstadd_back.c ft_lstclear.c ft_lstnew.c \
+				ft_substr.c ft_strtrim.c ft_atoi.c ft_isdigit.c ft_tabdup.c \
+				ft_lstadd_back.c ft_lstclear.c ft_lstnew.c ft_bzero.c \
 
-MAP			= parsing.c \
+MAP			= parsing.c check_parsing.c check_map.c \
 
 # ============================================================================= #
 
@@ -51,7 +51,7 @@ LDFLAGS		= -lmlx -framework OpenGL -framework AppKit
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror -I./includes/ -Imlx -g3 -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -I./includes/ -Imlx #-g3 -fsanitize=address
 
 RM			= rm -f
 

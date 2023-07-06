@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:06:13 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/04 15:58:14 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:43:01 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,14 @@ typedef struct s_map
 	char			**map;
 }					t_map;
 
+typedef struct s_vect
+{
+	int				x;
+	int				y;
+}					t_vect;
+
 void				ft_t_map_free(t_map *map);
 t_map				*parser(int fd);
+int					map_check(char **map);
 
 #endif
