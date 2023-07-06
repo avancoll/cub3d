@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/06 15:34:57 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:10:32 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ int	main(int argc, char **argv)
 	mlx_handler(&data);
 	init_player(&data);
 	data.key = malloc(sizeof(t_key));
+	data.x = SIZE_X / 2;
+	data.y = SIZE_Y / 2;
 	mlx_hook(data.win_ptr, ON_DESTROY, 0, ft_close, &data);
 	mlx_hook(data.win_ptr, ON_KEYUP, 0, key_released, &data);
 	mlx_hook(data.win_ptr, ON_KEYDOWN, 0, key_pressed, &data);
 	mlx_loop_hook(data.mlx_ptr, exec_move, &data);
+	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, data.img_ptr, 0, 0);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }
