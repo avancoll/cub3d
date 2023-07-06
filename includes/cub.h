@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/06 15:35:09 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:08:42 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ typedef struct s_mlx_data
 	int		bits_pixel;
 	int		size_line;
 	int		endian;
+	int		x;//a effacer
+	int		y;//a effacer
 }			t_mlx_data;
 
 void		mlx_put_pixel(t_mlx_data *data, int x, int y, int color);

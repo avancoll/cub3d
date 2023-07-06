@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/06 15:36:11 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:47:44 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	raytracer(t_mlx_data *data, t_ray *ray)
 	x = -1;
 	while (++x < SIZE_X)
 	{
-		ray->camera_x = 2 * x / SIZE_X - 1;
+		ray->camera_x = 2 * x / (double)SIZE_X - 1;
 		ray->ray_dir_x = ray->dir_x + (ray->plane_x * ray->camera_x);
 		ray->ray_dir_y = ray->dir_y + (ray->plane_y * ray->camera_x);
 		ray->map_x = (int)ray->pos_x;
@@ -185,22 +185,23 @@ int	raytracer(t_mlx_data *data, t_ray *ray)
 			color = 0xFF0000;
 		else
 			color = 0x00FF00;
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, ray->draw_start, color);
+		mlx_put_pixel(data, x, ray->draw_start, color);
 	}
 	return (0);
 }
 
 int	exec_move(t_mlx_data *data)
-{
+{	
 	if (data->key->mv_forward == 1)
-		write(1, "ford\n", 5);
+		mlx_put_pixel(data, data->x, data->y--, 0xFF0000);
 	if (data->key->mv_backward == 1)
-		write(1, "ford\n", 5);
-	if (data->key->mv_left == 1)
-		write(1, "ford\n", 5);
+		mlx_put_pixel(data, data->x, data->y++, 0xFF0000);
+	if (data->key->mv_left == 1)	
+		mlx_put_pixel(data, data->x--, data->y, 0xFF0000);
 	if (data->key->mv_right == 1)
-		write(1, "ford\n", 5);
+		mlx_put_pixel(data, data->x++, data->y, 0xFF0000);
 	raytracer(data, data->ray);
+	printf("x = %d, y = %d\n", data->x, data->y);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 	return (0);
 }
