@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/06 17:39:09 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:01:43 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,7 @@ int	key_released(int keycode, t_mlx_data *data)
 		data->key->mv_right = 0;
 	return (0);
 }
-void	init_player(t_mlx_data *data)
-{
-	data->ray = malloc(sizeof(t_ray));
-	data->ray->pos_x = 22;
-	data->ray->pos_y = 12;
-	data->ray->dir_x = -1;
-	data->ray->dir_y = 0;
-	data->ray->plane_x = 0;
-	data->ray->plane_y = 0.66;
-	
-}
+
 #define screenWidth 640
 #define screenHeight 480
 #define texWidth 64
