@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/06 18:51:41 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/06 19:04:23 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,19 @@ int	key_released(int keycode, t_mlx_data *data)
 	if (keycode == KEY_D)
 		data->key->mv_right = 0;
 	return (0);
+}
+void	init_player(t_mlx_data *data)
+{
+	data->ray = malloc(sizeof(t_ray));
+	data->ray->pos_x = 10;
+	data->ray->pos_y = 10;
+	data->ray->dir_x = -1;
+	data->ray->dir_y = 0;
+	data->ray->plane_x = 0;
+	data->ray->plane_y = 0.66;
+	data->ray->movespeed = 0.05;
+	data->ray->rotspeed = 0.05;
+	
 }
 
 int	raytracer(t_mlx_data *data, t_ray *ray, int color1, int color2)
@@ -167,20 +180,20 @@ int	exec_move(t_mlx_data *data)
 	if (data->key->mv_left == 1)
 	{
 		double oldDirX = data->ray->dir_x;
-		data->ray->dir_x = data->ray->dir_x * cos(-data->ray->rotspeed) - data->ray->dir_y * sin(-data->ray->rotspeed);
-		data->ray->dir_y = oldDirX * sin(-data->ray->rotspeed) + data->ray->dir_y * cos(-data->ray->rotspeed);
-		double oldPlaneX = data->ray->plane_x;
-		data->ray->plane_x = data->ray->plane_x * cos(-data->ray->rotspeed) - data->ray->plane_y * sin(-data->ray->rotspeed);
-		data->ray->plane_y = oldPlaneX * sin(-data->ray->rotspeed) + data->ray->plane_y * cos(-data->ray->rotspeed);
-	}
-	if (data->key->mv_right == 1)
-	{
-		double oldDirX = data->ray->dir_x;
 		data->ray->dir_x = data->ray->dir_x * cos(data->ray->rotspeed) - data->ray->dir_y * sin(data->ray->rotspeed);
 		data->ray->dir_y = oldDirX * sin(data->ray->rotspeed) + data->ray->dir_y * cos(data->ray->rotspeed);
 		double oldPlaneX = data->ray->plane_x;
 		data->ray->plane_x = data->ray->plane_x * cos(data->ray->rotspeed) - data->ray->plane_y * sin(data->ray->rotspeed);
 	 data->ray->plane_y = oldPlaneX * sin(data->ray->rotspeed) + data->ray->plane_y * cos(data->ray->rotspeed);
+	}
+	if (data->key->mv_right == 1)
+	{
+		double oldDirX = data->ray->dir_x;
+		data->ray->dir_x = data->ray->dir_x * cos(-data->ray->rotspeed) - data->ray->dir_y * sin(-data->ray->rotspeed);
+		data->ray->dir_y = oldDirX * sin(-data->ray->rotspeed) + data->ray->dir_y * cos(-data->ray->rotspeed);
+		double oldPlaneX = data->ray->plane_x;
+		data->ray->plane_x = data->ray->plane_x * cos(-data->ray->rotspeed) - data->ray->plane_y * sin(-data->ray->rotspeed);
+		data->ray->plane_y = oldPlaneX * sin(-data->ray->rotspeed) + data->ray->plane_y * cos(-data->ray->rotspeed);
 	}
 	raytracer(data, data->ray, 0xFF0000, 0x00FF00);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);

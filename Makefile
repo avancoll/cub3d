@@ -23,7 +23,7 @@ LIBFT		= ft_memcpy.c ft_split.c ft_strcmp.c ft_strdup.c ft_strlen.c \
 				ft_substr.c ft_strtrim.c ft_atoi.c ft_isdigit.c ft_tabdup.c \
 				ft_lstadd_back.c ft_lstclear.c ft_lstnew.c ft_bzero.c \
 
-MAP			= parsing.c check_parsing.c check_map.c map_to_data.c \
+MAP			= parsing.c check_parsing.c check_map.c \
 
 # ============================================================================= #
 
