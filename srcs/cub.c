@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/04 16:18:42 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:44:05 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ int	main(int argc, char **argv)
 	if (argc != 2 || filename_checker(argv[1]))
 		return (1);
 	data.map = parser(open_map(argv[1]));
-	// mlx_handler(&data);
-	// mlx_hook(data.win_ptr, ON_DESTROY, 0, ft_close, &data);
-	// mlx_hook(data.win_ptr, ON_KEYUP, 0, key_released, &data);
-	// mlx_hook(data.win_ptr, ON_KEYDOWN, 0, key_pressed, &data);
-	// mlx_loop_hook(data.mlx_ptr, exec_move, &data);
-	// mlx_loop(data.mlx_ptr);
+	mlx_handler(&data);
+	// init_player(data.ray);
+	data.key = malloc(sizeof(t_key));
+	mlx_hook(data.win_ptr, ON_DESTROY, 0, ft_close, &data);
+	mlx_hook(data.win_ptr, ON_KEYUP, 0, key_released, &data);
+	mlx_hook(data.win_ptr, ON_KEYDOWN, 0, key_pressed, &data);
+	mlx_loop_hook(data.mlx_ptr, exec_move, &data);
+	mlx_loop(data.mlx_ptr);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/04 15:48:17 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:49:47 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,116 +59,91 @@ int	key_released(int keycode, t_mlx_data *data)
 		data->key->mv_right = 0;
 	return (0);
 }
-
-int maptest[24][24]=
+void	init_player(t_ray *ray)
 {
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
-
-int	raytracer(/*t_data *data*/)
-{
-	double posX = 22, posY = 12;  //x and y start position -> check avec parsing
-	double dirX = -1, dirY = 0; //initial direction vector -> check avec parsing
-	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane -> mettre dans une structure
-
-	int	x;
-	double cameraX;
-    double rayDirX;
-	double rayDirY;
+	ray = malloc(sizeof(t_ray));
+	ray->pos_x = 22;
+	ray->pos_y = 12;
+	ray->dir_x = -1;
+	ray->dir_y = 0;
+	ray->plane_x = 0;
+	ray->plane_y = 0.66;
 	
+}
+
+int	raytracer(t_mlx_data *data, t_ray *ray)
+{
+	int	x;
+
 	x = -1;
 	while (++x < SIZE_X)
 	{
-		cameraX = 2 * x / (double)SIZE_X - 1;
-		rayDirX = dirX + planeX * cameraX;
-		rayDirY = dirY + planeY * cameraX;
-		int mapX = (int)posX;
-		int mapY = (int)posY;
-		double sideDistX;
-		double sideDistY;
-		double deltaDistX = fabs(1 / rayDirX);
-		double deltaDistY = fabs(1 / rayDirY);
-		double perpWallDist;
-		int stepX;
-		int stepY;
-		int hit = 0;
-		int side;
-		if (rayDirX < 0)
+		ray->camera_x = 2 * x / (double)SIZE_X - 1;
+		ray->ray_dir_x = ray->ray_dir_x + ray->plane_x * ray->camera_x;
+		ray->ray_dir_y = ray->dir_y + ray->plane_y * ray->camera_x;
+		ray->map_x = (int)ray->pos_x;
+		ray->map_y = (int)ray->pos_y;
+		
+		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+
+		ray->hit = 0;
+		if (ray->ray_dir_x < 0)
 		{
-			stepX = -1;
-			sideDistX = (posX - mapX) * deltaDistX;
+			ray->step_x = -1;
+			ray->side_dist_x = (ray->pos_x - ray->map_x) * ray->delta_dist_x;
 		}
 		else
 		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+			ray->step_x = 1;
+			ray->side_dist_x = (ray->map_x + 1.0 - ray->pos_x) * ray->delta_dist_x;
 		}
-		if (rayDirY < 0)
+		if (ray->ray_dir_y < 0)
 		{
-			stepY = -1;
-			sideDistY = (posY - mapY) * deltaDistY;
+			ray->step_y = -1;
+			ray->side_dist_y = (ray->pos_y - ray->map_y) * ray->delta_dist_y;
 		}
 		else
 		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+			ray->step_y = 1;
+			ray->side_dist_y = (ray->map_y + 1.0 - ray->pos_y) * ray->delta_dist_y;
 		}
-		while (hit == 0)
+		while (ray->hit == 0)
 		{
-			if (sideDistX < sideDistY)
+			if (ray->side_dist_x < ray->side_dist_y)
 			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
+				ray->side_dist_x += ray->delta_dist_x;
+				ray->map_x += ray->step_x;
+				ray->side = 0;
 			}
 			else
 			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
+				ray->side_dist_y += ray->delta_dist_y;
+				ray->map_y += ray->step_y;
+				ray->side = 1;
 			}
-			if (maptest[mapX][mapY] == '1')
-				hit = 1;
+			printf("x = %d, y = %d\n", ray->map_x, ray->map_y);
+			// if (data->map->map[ray->map_x][ray->map_y] == '1')
+				ray->hit = 1;
 		}
-		if (side == 0)
-			perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
+		if (ray->side == 0)
+			ray->perp_wall_dist = (ray->map_x - ray->pos_x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
 		else
-			perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
-		int lineHeight = (int)(SIZE_Y / perpWallDist);
-		int drawStart = -lineHeight / 2 + SIZE_Y / 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		int drawEnd = lineHeight / 2 + SIZE_Y / 2;
-		if (drawEnd >= SIZE_Y)
-			drawEnd = SIZE_Y - 1;
+			ray->perp_wall_dist = (ray->map_y - ray->pos_y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+		ray->line_height = (int)(SIZE_Y / ray->perp_wall_dist);
+		ray->draw_start = - ray->line_height / 2 + SIZE_Y / 2;
+		if (ray->draw_start < 0)
+			ray->draw_start = 0;
+		ray->draw_end = ray->line_height / 2 + SIZE_Y / 2;
+		if (ray->draw_end >= SIZE_Y)
+			ray->draw_end = SIZE_Y - 1;
 		int color;
-		if (side == 1)
+		if (ray->side == 1)
 			color = 0xFF0000;
 		else
 			color = 0x00FF00;
+		printf("coucou\n");
+		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, ray->draw_start, color);
 	}
 	return (0);
 }
@@ -178,12 +153,12 @@ int	exec_move(t_mlx_data *data)
 	if (data->key->mv_forward == 1)
 		write(1, "ford\n", 5);
 	if (data->key->mv_backward == 1)
-		;
+		write(1, "ford\n", 5);
 	if (data->key->mv_left == 1)
-		;
+		write(1, "ford\n", 5);
 	if (data->key->mv_right == 1)
-		;
-	raytracer(/*data*/);
+		write(1, "ford\n", 5);
+	raytracer(data, data->ray);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 	return (0);
 }
