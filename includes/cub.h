@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/06 13:27:57 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/06 15:35:09 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,6 @@ int			key_pressed(int keycode, t_mlx_data *data);
 int			key_released(int keycode, t_mlx_data *data);
 int			exec_move(t_mlx_data *data);
 int			ft_close(t_mlx_data *data);
-void		init_player(t_ray *ray);
+void		init_player(t_mlx_data *data);
 
 #endif
