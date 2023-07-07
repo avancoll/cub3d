@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:59:46 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/07 16:11:27 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:16:34 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	get_player_pos(t_mlx_data *data)
 			{
 				data->ray->pos_x = x + 0.5;
 				data->ray->pos_y = y + 0.5;
+				return ;
 			}
 			x++;
 		}
