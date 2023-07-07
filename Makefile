@@ -15,7 +15,7 @@ NAME		= cub3D
 
 SRCS		= cub.c \
 
-MLX			= mlx_handler.c #xpm_texture.c \
+MLX			= mlx_handler.c xpm_texture.c \
 
 GNL			= get_next_line.c get_next_line_utils.c \
 
@@ -51,7 +51,7 @@ LDFLAGS		= -lmlx -framework OpenGL -framework AppKit
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror -I./includes/ #-g3 -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -I./includes/ -g3 -fsanitize=address
 
 RM			= rm -f
 

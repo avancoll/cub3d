@@ -10,3 +10,7 @@ Mur plein ou vide:
 
 si void in map alors void is 2
 si flood fill meet 2 return -1
+
+
+need to free img in map
+			|img_addr

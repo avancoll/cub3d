@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/07 17:46:47 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/07 18:19:54 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,39 +80,39 @@ typedef struct s_key
 	int		rot_right;
 }			t_key;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
-	double		pos_x;
-	double		pos_y;
-	double		dir_x;
-	double		dir_y;
-	double		plane_x;
-	double		plane_y;
-	double		camera_x;
-	double		ray_dir_x;
-	double		ray_dir_y;
-	int			map_x;
-	int			map_y;
-	double		side_dist_x;
-	double		side_dist_y;
-	double		delta_dist_x;
-	double		delta_dist_y;
-	double		perp_wall_dist;
-	int			step_x;
-	int			step_y;
-	int			hit;
-	int			side;
-	int			line_height;
-	int			draw_start;
-	int			draw_end;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
 	// double		wall_x;
-	int			tex_x;
-	int			tex_y;
-	double		step;
-	double		tex_pos;
-	double		movespeed;
-	double		rotspeed;
-}				t_ray;
+	int		tex_x;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
+	double	movespeed;
+	double	rotspeed;
+}			t_ray;
 
 typedef struct s_mlx_data
 {
@@ -135,5 +135,6 @@ int			key_released(int keycode, t_mlx_data *data);
 int			exec_move(t_mlx_data *data);
 int			ft_close(t_mlx_data *data);
 void		init_player(t_mlx_data *data);
+void		get_texture_addr(t_mlx_data *data);
 
 #endif
