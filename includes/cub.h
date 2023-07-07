@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/07 16:56:07 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:46:47 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct s_key
 	int		mv_backward;
 	int		mv_left;
 	int		mv_right;
+	int		rot_left;
+	int		rot_right;
 }			t_key;
 
 typedef struct	s_ray
@@ -103,7 +105,7 @@ typedef struct	s_ray
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
-	double		wall_x;
+	// double		wall_x;
 	int			tex_x;
 	int			tex_y;
 	double		step;

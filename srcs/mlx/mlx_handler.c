@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/07 16:56:03 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:55:18 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	mlx_put_pixel(t_mlx_data *data, int x, int y, int color)
 		*(unsigned int *)dst = color;
 	}
 }
+
 
 void	mlx_handler(t_mlx_data *data)
 {
@@ -44,6 +45,10 @@ int	key_pressed(int keycode, t_mlx_data *data)
 		data->key->mv_left = 1;
 	if (keycode == KEY_D)
 		data->key->mv_right = 1;
+	if (keycode == KEY_LEFT)
+		data->key->rot_left = 1;
+	if (keycode == KEY_RIGHT)
+		data->key->rot_right = 1;
 	return (0);
 }
 
@@ -57,6 +62,10 @@ int	key_released(int keycode, t_mlx_data *data)
 		data->key->mv_left = 0;
 	if (keycode == KEY_D)
 		data->key->mv_right = 0;
+	if (keycode == KEY_LEFT)
+		data->key->rot_left = 0;
+	if (keycode == KEY_RIGHT)
+		data->key->rot_right = 0;
 	return (0);
 }
 
@@ -184,6 +193,24 @@ int	exec_move(t_mlx_data *data)
 	}
 	if (data->key->mv_left == 1)
 	{
+		if (data->map->map[(int)(data->ray->pos_y)][(int)(data->ray->pos_x
+				- data->ray->plane_x * data->ray->movespeed)] != '1')
+			data->ray->pos_x -= data->ray->plane_x * data->ray->movespeed;
+		if (data->map->map[(int)(data->ray->pos_y - data->ray->plane_y
+				* data->ray->movespeed)][(int)(data->ray->pos_x)] != '1')
+			data->ray->pos_y -= data->ray->plane_y * data->ray->movespeed;
+	}
+	if (data->key->mv_right == 1)
+	{
+		if (data->map->map[(int)(data->ray->pos_y)][(int)(data->ray->pos_x
+				+ data->ray->plane_x * data->ray->movespeed)] != '1')
+			data->ray->pos_x += data->ray->plane_x * data->ray->movespeed;
+		if (data->map->map[(int)(data->ray->pos_y + data->ray->plane_y
+				* data->ray->movespeed)][(int)(data->ray->pos_x)] != '1')
+			data->ray->pos_y += data->ray->plane_y * data->ray->movespeed;
+	}
+	if (data->key->rot_left == 1)
+	{
 		double oldDirX = data->ray->dir_x;
 		data->ray->dir_x = data->ray->dir_x * cos(data->ray->rotspeed)
 			- data->ray->dir_y * sin(data->ray->rotspeed);
@@ -195,7 +222,7 @@ int	exec_move(t_mlx_data *data)
 		data->ray->plane_y = oldPlaneX * sin(data->ray->rotspeed)
 			+ data->ray->plane_y * cos(data->ray->rotspeed);
 	}
-	if (data->key->mv_right == 1)
+	if (data->key->rot_right == 1)
 	{
 		double oldDirX = data->ray->dir_x;
 		data->ray->dir_x = data->ray->dir_x * cos(-data->ray->rotspeed)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:04:56 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/06 16:13:01 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:32:39 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	check_parsing(t_map *map)
 		|| !map->texture_ea || map->ceiling & (255 << 24)
 		|| map->floor & (255 << 24))
 		return (-1);
-	if (player_check(map) == -1 || map_check(map->map) == -1)
+	if (player_check(map) == -1 || map_check(map) == -1)
 		return (-1);
 	return (0);
 }

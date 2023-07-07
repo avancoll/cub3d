@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:06:13 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/06 17:01:54 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:38:25 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,13 @@ typedef struct s_map
 	unsigned int	floor;
 	unsigned int	ceiling;
 	char			**map;
-}					t_map;
-
-typedef struct s_vect
-{
 	int				x;
 	int				y;
-}					t_vect;
+}					t_map;
 
 void				ft_t_map_free(t_map *map);
 t_map				*parser(int fd);
-int					map_check(char **map);
+int					map_check(t_map *map);
 int					check_parsing(t_map *map);
 
 #endif
