@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:59:46 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/07 14:40:47 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/07 15:06:29 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@ static void	get_player_dir(double *dir_x, double *dir_y, t_vect *ppos,
 {
 	if (map[ppos->y][ppos->x] == 'N')
 	{
-		*dir_x = 1;
+		*dir_x = -1;
 		*dir_y = 0;
 	}
 	else if (map[ppos->y][ppos->x] == 'S')
 	{
-		*dir_x = 1;
+		*dir_x = -1;
 		*dir_y = 0;
 	}
 	else if (map[ppos->y][ppos->x] == 'W')
 	{
-		*dir_x = 1;
+		*dir_x = -1;
 		*dir_y = 0;
 	}
 	else if (map[ppos->y][ppos->x] == 'E')
 	{
-		*dir_x = 1;
+		*dir_x = -1;
 		*dir_y = 0;
 	}
 }
