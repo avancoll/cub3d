@@ -15,7 +15,7 @@ NAME		= cub3D
 
 SRCS		= cub.c \
 
-MLX			= mlx_handler.c \
+MLX			= mlx_handler.c #xpm_texture.c \
 
 GNL			= get_next_line.c get_next_line_utils.c \
 
