@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/07 16:10:20 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:56:03 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	init_floor_ceiling(t_mlx_data *data)
 	}
 }
 
-int	raytracer(t_mlx_data *data, t_ray *ray, int color1, int color2)
+int	raycaster(t_mlx_data *data, t_ray *ray, int color1, int color2)
 {
 	int	x;
 	int	color;
@@ -112,8 +112,7 @@ int	raytracer(t_mlx_data *data, t_ray *ray, int color1, int color2)
 		else
 		{
 			ray->step_x = 1;
-			ray->side_dist_x = (ray->map_x + 1.0 - ray->pos_x)
-				* ray->delta_dist_x;
+			ray->side_dist_x = (ray->map_x + 1 - ray->pos_x) * ray->delta_dist_x;
 		}
 		if (ray->ray_dir_y < 0)
 		{
@@ -123,8 +122,7 @@ int	raytracer(t_mlx_data *data, t_ray *ray, int color1, int color2)
 		else
 		{
 			ray->step_y = 1;
-			ray->side_dist_y = (ray->map_y + 1.0 - ray->pos_y)
-				* ray->delta_dist_y;
+			ray->side_dist_y = (ray->map_y + 1 - ray->pos_y) * ray->delta_dist_y;
 		}
 		while (ray->hit == 0)
 		{
@@ -170,7 +168,7 @@ int	exec_move(t_mlx_data *data)
 	{
 		if (data->map->map[(int)(data->ray->pos_y)][(int)(data->ray->pos_x
 				+ data->ray->dir_x * data->ray->movespeed)] != '1')
-			data->ray->pos_x += data->ray->dir_x * data->ray->movespeed;
+					data->ray->pos_x += data->ray->dir_x * data->ray->movespeed;
 		if (data->map->map[(int)(data->ray->pos_y + data->ray->dir_y
 				* data->ray->movespeed)][(int)(data->ray->pos_x)] != '1')
 			data->ray->pos_y += data->ray->dir_y * data->ray->movespeed;
@@ -211,8 +209,8 @@ int	exec_move(t_mlx_data *data)
 			+ data->ray->plane_y * cos(-data->ray->rotspeed);
 	}
 	init_floor_ceiling(data);
-	raytracer(data, data->ray, 0xFF0000, 0x00FF00);
+	raycaster(data, data->ray, 0xFF0000, 0x00FF00);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
-	raytracer(data, data->ray, 0x000000, 0x000000);
+	raycaster(data, data->ray, 0x000000, 0x000000);
 	return (0);
 }
