@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/06 17:35:47 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/07 15:49:29 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static unsigned int	color_converter(char *str)
 {
 	char	**c;
 	int		col;
+	int		col_tmp;
 	int		i;
 
 	i = 0;
@@ -46,11 +47,14 @@ static unsigned int	color_converter(char *str)
 			col = -1;
 		else
 		{
-			col = ft_atoi(c[i]);
-			if (col > 255 || col < 0 || i > 2)
+			col_tmp = ft_atoi(c[i]);
+			if (col_tmp > 255 || col_tmp < 0 || i > 2)
 				col = -1;
 			if (col != -1 && i > 0)
+			{
 				col = col << 8;
+				col += col_tmp;
+			}
 			i++;
 		}
 	}

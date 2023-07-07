@@ -7,14 +7,14 @@
 SO ./textures/s1.xpm
 WE ./textures/s1.xpm
 EA ./textures/s1.xpm
-C 225,30,0
+C 225,30,01
 
 
 
 NO ./textures/s1.xpm
 
 
-F 0,5,5
+F 0,50,50
 
         1111111111111111111111111
         1000000000110000000000001
