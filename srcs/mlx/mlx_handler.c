@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/07 15:50:39 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/07 15:57:52 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int	raytracer(t_mlx_data *data, t_ray *ray, int color1, int color2)
 				ray->map_y += ray->step_y;
 				ray->side = 1;
 			}
-			if (data->map->map[ray->map_y][ray->map_x] != '0')
+			if (data->map->map[ray->map_y][ray->map_x] == '1')
 				ray->hit = 1;
 		}
 		if (ray->side == 0)
@@ -169,19 +169,19 @@ int	exec_move(t_mlx_data *data)
 	if (data->key->mv_forward == 1)
 	{
 		if (data->map->map[(int)(data->ray->pos_y)][(int)(data->ray->pos_x
-				+ data->ray->dir_x * data->ray->movespeed)] == '0')
+				+ data->ray->dir_x * data->ray->movespeed)] != '1')
 			data->ray->pos_x += data->ray->dir_x * data->ray->movespeed;
 		if (data->map->map[(int)(data->ray->pos_y + data->ray->dir_y
-				* data->ray->movespeed)][(int)(data->ray->pos_x)] == '0')
+				* data->ray->movespeed)][(int)(data->ray->pos_x)] != '1')
 			data->ray->pos_y += data->ray->dir_y * data->ray->movespeed;
 	}
 	if (data->key->mv_backward == 1)
 	{
 		if (data->map->map[(int)(data->ray->pos_y)][(int)(data->ray->pos_x
-				- data->ray->dir_x * data->ray->movespeed)] == '0')
+				- data->ray->dir_x * data->ray->movespeed)] != '1')
 			data->ray->pos_x -= data->ray->dir_x * data->ray->movespeed;
 		if (data->map->map[(int)(data->ray->pos_y - data->ray->dir_y
-				* data->ray->movespeed)][(int)(data->ray->pos_x)] == '0')
+				* data->ray->movespeed)][(int)(data->ray->pos_x)] != '1')
 			data->ray->pos_y -= data->ray->dir_y * data->ray->movespeed;
 	}
 	if (data->key->mv_left == 1)

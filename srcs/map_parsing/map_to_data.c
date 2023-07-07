@@ -3,81 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   map_to_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:59:46 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/07 15:06:29 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/07 15:54:29 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static void	get_player_dir(double *dir_x, double *dir_y, t_vect *ppos,
-		char **map)
+static void	get_player_dir_ns(t_mlx_data *data)
 {
-	if (map[ppos->y][ppos->x] == 'N')
+	if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'N')
 	{
-		*dir_x = -1;
-		*dir_y = 0;
+		data->ray->dir_x = 0;
+		data->ray->dir_y = -1;
+		data->ray->plane_x = -0.66;
+		data->ray->plane_y = 0;
 	}
-	else if (map[ppos->y][ppos->x] == 'S')
+	else if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'S')
 	{
-		*dir_x = -1;
-		*dir_y = 0;
-	}
-	else if (map[ppos->y][ppos->x] == 'W')
-	{
-		*dir_x = -1;
-		*dir_y = 0;
-	}
-	else if (map[ppos->y][ppos->x] == 'E')
-	{
-		*dir_x = -1;
-		*dir_y = 0;
+		data->ray->dir_x = 0;
+		data->ray->dir_y = 1;
+		data->ray->plane_x = 0.66;
+		data->ray->plane_y = 0;
 	}
 }
 
-static t_vect	get_player_pos(char **map)
+static void	get_player_dir_we(t_mlx_data *data)
 {
-	t_vect	player_pos;
+	if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'W')
+	{
+		data->ray->dir_x = -1;
+		data->ray->dir_y = 0;
+		data->ray->plane_x = 0;
+		data->ray->plane_y = 0.66;
+	}
+	else if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'E')
+	{
+		data->ray->dir_x = 1;
+		data->ray->dir_y = 0;
+		data->ray->plane_x = 0;
+		data->ray->plane_y = -0.66;
+	}
+}
+
+
+static void	get_player_pos(t_mlx_data *data)
+{
 	int		x;
 	int		y;
-
-	player_pos.x = -1;
-	player_pos.y = -1;
+	
 	y = 0;
-	while (map && map[y])
+	while (data->map->map && data->map->map[y])
 	{
 		x = 0;
-		while (map[y][x])
+		while (data->map->map[y][x])
 		{
-			if (ft_strchr("NSWE", map[y][x]))
+			if (ft_strchr("NSWE", data->map->map[y][x]))
 			{
-				player_pos.x = x;
-				player_pos.y = y;
-				return (player_pos);
+				data->ray->pos_x = x;
+				data->ray->pos_y = y;
 			}
 			x++;
 		}
 		y++;
 	}
-	return (player_pos);
 }
 
 void	init_player(t_mlx_data *data)
 {
-	t_vect	player_pos;
-
-	player_pos = get_player_pos(data->map->map);
 	data->ray = malloc(sizeof(t_ray));
-	data->ray->pos_x = player_pos.x;
-	data->ray->pos_y = player_pos.y;
-	data->ray->dir_x = -1;
-	data->ray->dir_y = 0;
 	data->ray->movespeed = 0.05;
 	data->ray->rotspeed = 0.05;
-	get_player_dir(&data->ray->dir_x, &data->ray->dir_y, &player_pos,
-			data->map->map);
-	data->ray->plane_x = 0;
-	data->ray->plane_y = 0.66;
+	get_player_pos(data);
+	get_player_dir_ns(data);
+	get_player_dir_we(data);
 }
