@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_to_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:59:46 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/07 15:54:29 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:11:27 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ static void	get_player_pos(t_mlx_data *data)
 		{
 			if (ft_strchr("NSWE", data->map->map[y][x]))
 			{
-				data->ray->pos_x = x;
-				data->ray->pos_y = y;
+				data->ray->pos_x = x + 0.5;
+				data->ray->pos_y = y + 0.5;
 			}
 			x++;
 		}
