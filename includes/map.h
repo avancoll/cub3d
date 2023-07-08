@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:06:13 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/07 18:16:07 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:42:38 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_map
 	int				y;
 	void			**img_from_xpm;
 	char 			**img_data;
+	int				tex_width;
+	int				tex_height;
 }					t_map;
 
 void				ft_t_map_free(t_map *map);

@@ -1,16 +1,9 @@
------MAP-----
-
-Player pos and facing:
-	N-S-E-W
-
-Mur plein ou vide:
-	0-1
 
 ==========================================================
 
-si void in map alors void is 2
-si flood fill meet 2 return -1
+-> probleme de lecture de texture, si malloc aucun changement
+-> si lecture d'une autre texture -> texture[1] ou 2 alors crash
 
+-> les couleurs affichees ne proviennent pas des textures
 
-need to free img in map
-			|img_addr
+==========================================================

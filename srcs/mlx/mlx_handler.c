@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/07 19:21:43 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/08 18:16:16 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	mlx_put_pixel(t_mlx_data *data, int x, int y, int color)
 
 	if (x >= 0 && y >= 0 && x < SIZE_X && y < SIZE_Y)
 	{
-		dst = data->addr + (y * data->size_line + x * (data->bits_pixel / 8));
+		dst = data->addr + (y * SIZE_X * 4 + x * (data->bits_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
 }
@@ -91,13 +91,13 @@ static void	init_floor_ceiling(t_mlx_data *data)
 	}
 }
 
-int	raycaster(t_mlx_data *data, t_ray *ray, int color1, int color2)
+int	raycaster(t_mlx_data *data, t_ray *ray)
 {
 	int	x;
 	int	color;
 
-	x = -1;
-	while (++x < SIZE_X)
+	x = 0;
+	while (x < SIZE_X)
 	{
 		ray->camera_x = 2 * x / (double)SIZE_X - 1;
 		ray->ray_dir_x = ray->dir_x + (ray->plane_x * ray->camera_x);
@@ -161,48 +161,31 @@ int	raycaster(t_mlx_data *data, t_ray *ray, int color1, int color2)
 		ray->draw_end = ray->line_height / 2 + SIZE_Y / 2;
 		if (ray->draw_end >= SIZE_Y)
 			ray->draw_end = SIZE_Y - 1;
-		/*
-		untextured colors start
-		if (ray->side == 1)
-			color = color1;
-		else
-			color = color2;
-		while (ray->draw_start <= ray->draw_end)
-			mlx_put_pixel(data, x, ray->draw_start++, color);
-		untextured colors end
-		*/
-		(void)color1;
-		(void)color2;
 		double wall_x;
 		if (ray->side == 0)
 			wall_x = ray->pos_y + ray->perp_wall_dist * ray->ray_dir_y;
 		else
 			wall_x = ray->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
 		wall_x -= floor((wall_x));
-		int	tex_width = 64;
-		int	tex_height = 64;
-		int tex_x = (int)(wall_x * (double)tex_width);
+		int tex_x = (int)(wall_x * (double)data->map->tex_width);
 		if(ray->side == 0 && ray->ray_dir_x > 0)
-			tex_x = tex_width - tex_x - 1;
+			tex_x = data->map->tex_width - tex_x - 1;
 		if(ray->side == 1 && ray->ray_dir_y < 0)
-			tex_x = tex_width - tex_x - 1;
-
-		double step = 1.0 * tex_height / ray->line_height;
+			tex_x = data->map->tex_width - tex_x - 1;
+		double step = 1.0 * data->map->tex_height / ray->line_height;
 		double tex_pos = (ray->draw_start - SIZE_Y / 2 + ray->line_height / 2) * step;
-		for(int y = ray->draw_start; y < ray->draw_end; y++)
+		for(int y = ray->draw_start; y <= ray->draw_end; y++)
 		{
-			int tex_y = (int)tex_pos & (tex_height - 1);
+			int tex_y = (int)tex_pos & (data->map->tex_height - 1);
 			tex_pos += step;
-			color = data->map->img_data[0][tex_height * tex_y + tex_x];
+			color = data->map->img_data[0][data->map->tex_height * tex_y + tex_x];
 			
 			// pour assombrir (juste style)
 			if (ray->side == 1)
 				color = (color >> 1) & 8355711;
-			// buffer[y][x] = color;
 			mlx_put_pixel(data, x, y, color);
 		}
-		// while (ray->draw_start <= ray->draw_end)
-		// 	mlx_put_pixel(data, x, ray->draw_start++, color);
+		x++;
 	}
 	return (0);
 }
@@ -272,8 +255,8 @@ int	exec_move(t_mlx_data *data)
 			+ data->ray->plane_y * cos(-data->ray->rotspeed);
 	}
 	init_floor_ceiling(data);
-	raycaster(data, data->ray, 0xFF0000, 0x00FF00);
+	raycaster(data, data->ray);
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
-	raycaster(data, data->ray, 0x000000, 0x000000);
 	return (0);
 }
