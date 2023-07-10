@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:32:44 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/08 18:16:31 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:11:43 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static void	init_texture(t_mlx_data *data)
 {
-	void	*img[4];
+	void **const	img = malloc(sizeof(void *) * 4);
 
+	printf("1:[%p]\n", img[0]);
 	img[0] = mlx_xpm_file_to_image(data->mlx_ptr, data->map->texture_no,
 			&data->map->tex_width, &data->map->tex_height);
+	printf("2:[%p]\n", img[0]);
 	img[1] = mlx_xpm_file_to_image(data->mlx_ptr, data->map->texture_so,
 			&data->map->tex_width, &data->map->tex_height);
 	img[2] = mlx_xpm_file_to_image(data->mlx_ptr, data->map->texture_we,

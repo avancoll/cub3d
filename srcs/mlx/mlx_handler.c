@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/08 18:16:16 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:22:47 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int	raycaster(t_mlx_data *data, t_ray *ray)
 		{
 			int tex_y = (int)tex_pos & (data->map->tex_height - 1);
 			tex_pos += step;
-			color = data->map->img_data[0][data->map->tex_height * tex_y + tex_x];
+			color = data->map->img_data[0][data->map->tex_width * tex_y + tex_x];
 			
 			// pour assombrir (juste style)
 			if (ray->side == 1)
