@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/10 14:22:47 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:18:21 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,20 @@ static void	init_floor_ceiling(t_mlx_data *data)
 	}
 }
 
+int	get_tex_color(t_mlx_data *data, int x, int y)
+{
+	int		color;
+	char	*dst;
+
+	dst = data->map->img_data[3] + (y * data->size_line + x * (data->bits_pixel / 8));
+	color = *(unsigned int *)dst;
+	return (color);
+}
+
 int	raycaster(t_mlx_data *data, t_ray *ray)
 {
 	int	x;
-	int	color;
+	unsigned int	color;
 
 	x = 0;
 	while (x < SIZE_X)
@@ -174,21 +184,18 @@ int	raycaster(t_mlx_data *data, t_ray *ray)
 			tex_x = data->map->tex_width - tex_x - 1;
 		double step = 1.0 * data->map->tex_height / ray->line_height;
 		double tex_pos = (ray->draw_start - SIZE_Y / 2 + ray->line_height / 2) * step;
-		for(int y = ray->draw_start; y <= ray->draw_end; y++)
+		for (int y = ray->draw_start; y <= ray->draw_end; y++)
 		{
 			int tex_y = (int)tex_pos & (data->map->tex_height - 1);
 			tex_pos += step;
-			color = data->map->img_data[0][data->map->tex_width * tex_y + tex_x];
-			
-			// pour assombrir (juste style)
-			if (ray->side == 1)
-				color = (color >> 1) & 8355711;
+			color = get_tex_color(data, tex_x, tex_y);
 			mlx_put_pixel(data, x, y, color);
 		}
 		x++;
 	}
 	return (0);
 }
+
 
 int	exec_move(t_mlx_data *data)
 {
