@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:17:25 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/06 16:42:44 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:02:38 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ int					ft_lstsize(t_list *lst);
 char				**ft_tabdup(char **tab);
 void				ft_bzero(void *str, size_t n);
 void				double_free(char **tab);
+void				ft_strreverse(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/10 16:43:28 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:13:25 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,20 @@ int	get_tex_color(t_mlx_data *data, int x, int y)
 	char	*dst;
 	int		side;
 
-	// HERE
 	if (data->ray->side == 1)
-		side = 0;
+	{
+		if (data->ray->ray_dir_y >= 0)
+			side = 1;
+		else
+			side = 0;
+	}
 	else
-		side = 2;
+	{
+		if (data->ray->ray_dir_x >= 0)
+			side = 2;
+		else
+			side = 3;
+	}
 	dst = data->map->img_data[side] + (y * data->size_line + x * (data->bits_pixel / 8));
 	color = *(unsigned int *)dst;
 	return (color);

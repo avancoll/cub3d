@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:59:46 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/07 19:17:34 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:22:05 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ static void	get_player_dir_ns(t_mlx_data *data)
 
 static void	get_player_dir_we(t_mlx_data *data)
 {
-	if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'W')
+	if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'E')
 	{
 		data->ray->dir_x = -1;
 		data->ray->dir_y = 0;
 		data->ray->plane_x = 0;
 		data->ray->plane_y = 0.66;
 	}
-	else if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'E')
+	else if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'W')
 	{
 		data->ray->dir_x = 1;
 		data->ray->dir_y = 0;

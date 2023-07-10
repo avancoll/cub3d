@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/07 17:52:58 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:05:09 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ static void	map_filler(t_map *map, t_list *lst)
 		ft_memset(map->map[i], '2', max_len);
 		map->map[i][max_len] = 0;
 		ft_memcpy(map->map[i], tmp_lst->content, ft_strlen(tmp_lst->content));
+		ft_strreverse(map->map[i]);
 		tmp_lst = tmp_lst->next;
 		i++;
 	}

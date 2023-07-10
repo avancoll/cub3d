@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:04:56 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/07 17:32:39 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:33:30 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,33 @@ static int	player_check(t_map *map)
 	return (0);
 }
 
+static int	file_exist(t_map *map)
+{
+	int	fd;
+
+	fd = open(map->texture_no, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	fd = open(map->texture_so, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	fd = open(map->texture_ea, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	fd = open(map->texture_we, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	return (0);
+}
+
 int	check_parsing(t_map *map)
 {
 	if (!map->texture_no || !map->texture_so || !map->texture_we
 		|| !map->texture_ea || map->ceiling & (255 << 24)
 		|| map->floor & (255 << 24))
 		return (-1);
-	if (player_check(map) == -1 || map_check(map) == -1)
+	if (player_check(map) == -1 || map_check(map) == -1
+		|| file_exist(map) == -1)
 		return (-1);
 	return (0);
 }
