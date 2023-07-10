@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xpm_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:32:44 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/10 16:05:37 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:25:33 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ static void	init_texture(t_mlx_data *data)
 	img[3] = mlx_xpm_file_to_image(data->mlx_ptr, data->map->texture_ea,
 			&data->map->tex_width, &data->map->tex_height);
 	data->map->img_from_xpm = img;
-
 }
 
 void	get_texture_addr(t_mlx_data *data)
 {
-	char	**img_data = malloc(sizeof(char *) * 4);
-	int		i;
+	int				i;
+	char **const	img_data = malloc(sizeof(char *) * 4);
 
 	i = 0;
 	data->size_line = SIZE_X * 4;
@@ -39,7 +38,9 @@ void	get_texture_addr(t_mlx_data *data)
 	while (i < 4)
 	{
 		img_data[i] = mlx_get_data_addr(data->map->img_from_xpm[i],
-				&data->bits_pixel, &data->size_line, &data->endian);
+				&data->bits_pixel,
+				&data->size_line,
+				&data->endian);
 		i++;
 	}
 	data->map->img_data = img_data;

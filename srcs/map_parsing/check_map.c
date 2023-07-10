@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 15:12:57 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/07 17:37:57 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:27:52 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ int	map_check(t_map *map)
 		x = 0;
 		while (map->map[y][x])
 		{
-			if ((y == 0 || x == 0 || y == map->y || x == map->x) && map->map[y][x] == '0')
+			if ((y == 0 || x == 0 || y == map->y || x
+					== map->x) && map->map[y][x] == '0')
 				return (-1);
-			else if (ft_strchr("0NSWE", map->map[y][x]) && (map->map[y][x - 1] == '2'
-						|| map->map[y][x + 1] == '2' || map->map[y - 1][x] == '2' || map->map[y + 1][x] == '2'))
+			else if (ft_strchr("0NSWE", map->map[y][x]) && (map->map[y][x - 1]
+				== '2' || map->map[y][x + 1] == '2' || map->map[y - 1][x]
+				== '2' || map->map[y + 1][x] == '2'))
 				return (-1);
 			x++;
 		}

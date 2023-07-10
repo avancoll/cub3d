@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/10 19:05:09 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:34:06 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ static t_map	*map_init(void)
 	return (map);
 }
 
+static void	color_converter_part(int *col_tmp, int *col, int *i, char **c)
+{
+	*col_tmp = ft_atoi(c[i]);
+	if (*col_tmp > 255 || *col_tmp < 0 || *i > 2)
+		*col = -1;
+	if (*col != -1 && *i >= 0)
+	{
+		(*col) *= 256;
+		(*col) += *col_tmp;
+	}
+	(*i)++;
+}
+
 static unsigned int	color_converter(char *str)
 {
 	char	**c;
@@ -46,17 +59,7 @@ static unsigned int	color_converter(char *str)
 		if (ft_strlen(c[i]) > 3 || !is_all_digit(c[i]) || ft_strlen(c[i]) == 0)
 			col = -1;
 		else
-		{
-			col_tmp = ft_atoi(c[i]);
-			if (col_tmp > 255 || col_tmp < 0 || i > 2)
-				col = -1;
-			if (col != -1 && i >= 0)
-			{
-				col *= 256;
-				col += col_tmp;
-			}
-			i++;
-		}
+			color_converter_part(&col_tmp, &col, &i, c);
 	}
 	if (i < 3)
 		col = -1;

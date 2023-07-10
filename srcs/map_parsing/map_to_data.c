@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_to_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:59:46 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/10 19:22:05 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:26:51 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	get_player_dir_ns(t_mlx_data *data)
 		data->ray->plane_x = -0.66;
 		data->ray->plane_y = 0;
 	}
-	else if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'S')
+	else if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x]
+		== 'S')
 	{
 		data->ray->dir_x = 0;
 		data->ray->dir_y = 1;
@@ -39,7 +40,8 @@ static void	get_player_dir_we(t_mlx_data *data)
 		data->ray->plane_x = 0;
 		data->ray->plane_y = 0.66;
 	}
-	else if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'W')
+	else if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x]
+		== 'W')
 	{
 		data->ray->dir_x = 1;
 		data->ray->dir_y = 0;
@@ -48,12 +50,11 @@ static void	get_player_dir_we(t_mlx_data *data)
 	}
 }
 
-
 static void	get_player_pos(t_mlx_data *data)
 {
 	int		x;
 	int		y;
-	
+
 	y = 0;
 	while (data->map->map && data->map->map[y])
 	{

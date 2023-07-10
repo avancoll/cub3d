@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/07 19:17:20 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/10 21:29:26 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	ft_close(t_mlx_data *data)
 		mlx_destroy_image(data->mlx_ptr, data->img_ptr);
 	if (data->win_ptr)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	//free_map();
-	//free_data();
 	exit(0);
 }
 
@@ -53,7 +51,7 @@ int	open_map(char *str)
 
 int	main(int argc, char **argv)
 {
-	t_mlx_data data;
+	t_mlx_data	data;
 
 	if (argc != 2 || filename_checker(argv[1]))
 		return (1);
