@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/10 16:18:21 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:43:28 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,14 @@ int	get_tex_color(t_mlx_data *data, int x, int y)
 {
 	int		color;
 	char	*dst;
+	int		side;
 
-	dst = data->map->img_data[3] + (y * data->size_line + x * (data->bits_pixel / 8));
+	// HERE
+	if (data->ray->side == 1)
+		side = 0;
+	else
+		side = 2;
+	dst = data->map->img_data[side] + (y * data->size_line + x * (data->bits_pixel / 8));
 	color = *(unsigned int *)dst;
 	return (color);
 }
