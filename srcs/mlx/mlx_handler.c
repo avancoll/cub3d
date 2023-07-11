@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/10 19:13:25 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:37:53 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	get_tex_color(t_mlx_data *data, int x, int y)
 
 int	raycaster(t_mlx_data *data, t_ray *ray)
 {
-	int	x;
+	int				x;
 	unsigned int	color;
 
 	x = 0;
@@ -214,10 +214,10 @@ int	raycaster(t_mlx_data *data, t_ray *ray)
 
 int	exec_move(t_mlx_data *data)
 {
+
 	if (data->key->mv_forward == 1)
 	{
-		if (data->map->map[(int)(data->ray->pos_y)][(int)(data->ray->pos_x
-				+ data->ray->dir_x * data->ray->movespeed)] != '1')
+		if (data->map->map[(int)(data->ray->pos_y)][(int)(data->ray->pos_x + data->ray->dir_x * data->ray->movespeed)] != '1')
 					data->ray->pos_x += data->ray->dir_x * data->ray->movespeed;
 		if (data->map->map[(int)(data->ray->pos_y + data->ray->dir_y
 				* data->ray->movespeed)][(int)(data->ray->pos_x)] != '1')

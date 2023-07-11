@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/10 21:34:06 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:12:47 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_map	*map_init(void)
 
 static void	color_converter_part(int *col_tmp, int *col, int *i, char **c)
 {
-	*col_tmp = ft_atoi(c[i]);
+	*col_tmp = ft_atoi(c[*i]);
 	if (*col_tmp > 255 || *col_tmp < 0 || *i > 2)
 		*col = -1;
 	if (*col != -1 && *i >= 0)
