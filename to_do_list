@@ -1,5 +1,10 @@
 ===============================================================================
 
+➜  cub3D git:(master) ✗ ./cub3D Makefile.cub    
+Error
+Wrong number of arguments
+
+tester avec des mauvaise maps genre double texture etc... -> mauvais print d'erreur
 
 ===============================================================================
 
