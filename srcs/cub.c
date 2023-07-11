@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 13:00:03 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:29:15 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ int	init_key(t_mlx_data *data)
 	return (0);
 }
 
-int	display_error(t_mlx_data *data)
+int	free_all(t_mlx_data *data)
 {
-	write(2, "Error\n", 6);
-	ft_close(data);
+	if (data->map)
+		ft_t_map_free(data->map);
+	if (data->key)
+		free(data->key);
 	return (1);
 }
 
@@ -76,14 +78,15 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || filename_checker(argv[1]))
 		return (1);
-	data.map = parser(open_map(argv[1]));
+	data.map = map_init();
+	parser(open_map(argv[1], &(data).map));
 	if (!data.map)
-		return (1);
+		return (free_all(&data));
 	init_mlx(&data);
 	if (init_player(&data))
-		return (display_error(&data));
+		return (free_all(&data));
 	if (init_key(&data))
-		return (display_error(&data));
+		return (free_all(&data));
 	mlx_hook(data.win_ptr, ON_DESTROY, 0, ft_close, &data);
 	mlx_hook(data.win_ptr, ON_KEYUP, 0, key_released, &data);
 	mlx_hook(data.win_ptr, ON_KEYDOWN, 0, key_pressed, &data);
