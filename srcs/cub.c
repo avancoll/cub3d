@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 18:00:47 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:17:20 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,22 @@ int	open_map(char *str)
 
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-	{
-		perror("cub3D");
 		return (-1);
-	}
 	return (fd);
+}
+
+static int	basic_init_part(int argc, char **argv, t_mlx_data *data, int *fd)
+{
+	if (argc != 2)
+		return (display_error(NULL, 1, -1));
+	if (filename_checker(argv[1]))
+		return (display_error(NULL, 2, -1));
+	if (init_map(data))
+		return (display_error(NULL, 3, -1));
+	*fd = open_map(argv[1]);
+	if (*fd == -1)
+		return (display_error(data, 4, *fd));
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -31,18 +42,12 @@ int	main(int argc, char **argv)
 	int			fd;
 	int			ret;
 
-	if (argc != 2)
-		return (display_error(NULL, 1));
-	if (filename_checker(argv[1]))
-		return (display_error(NULL, 2));
-	if (init_map(&data))
-		return (display_error(NULL, 3));
-	fd = open_map(argv[1]);
-	if (fd == -1)
-		return (display_error(&data, 4));
+	ret = basic_init_part(argc, argv, &data, &fd);
+	if (ret)
+		return (ret);
 	ret = parser(fd, data.map, 0);
 	if (ret)
-		return (display_error(&data, ret));      //return (free_all(&data)); ici il faut close(fd) attention !
+		return (display_error(&data, ret, fd));
 	close(fd);
 	if (!data.map)
 		return (free_all(&data));

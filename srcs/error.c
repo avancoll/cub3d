@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:15:42 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 17:54:11 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:18:29 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	display_error(t_mlx_data *data, int errnum)
+int	display_error(t_mlx_data *data, int errnum, int fd)
 {
 	write(2, "Error\n", 6);
 	if (errnum == 1)
@@ -22,11 +22,14 @@ int	display_error(t_mlx_data *data, int errnum)
 	else if (errnum == 3)
 		perror("cub3D");
 	else if (errnum == 4)
-		;
+		perror("cub3D");
 	if (data)
 		free_all(data);
+	if (fd != -1)
+		close(fd);
 	return (1);
 }
+
 int	ft_close(t_mlx_data *data)
 {
 	if (data->img_ptr)
@@ -39,7 +42,7 @@ int	ft_close(t_mlx_data *data)
 int	filename_checker(char *str)
 {
 	if (ft_strlen(str) > 4 && ft_strcmp(str + ft_strlen(str) - 4, ".cub"))
-			return (1);
+		return (1);
 	return (0);
 }
 

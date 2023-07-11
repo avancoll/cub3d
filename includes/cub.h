@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 17:53:27 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:05:42 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,6 @@ int			free_all(t_mlx_data *data);
 int			get_tex_color(t_mlx_data *data, int x, int y);
 void		init_floor_ceiling(t_mlx_data *data);
 int			raycaster(t_mlx_data *data, t_ray *ray);
-int			display_error(t_mlx_data *data, int errnum);
+int			display_error(t_mlx_data *data, int errnum, int fd);
 
 #endif
