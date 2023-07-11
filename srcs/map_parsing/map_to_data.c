@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_to_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:59:46 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 12:35:22 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:03:41 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,16 @@ static void	get_player_pos(t_mlx_data *data)
 	}
 }
 
-void	init_player(t_mlx_data *data)
+int	init_player(t_mlx_data *data)
 {
 	data->ray = malloc(sizeof(t_ray));
+	if (!data->ray)
+		return (-1);
 	data->ray->movespeed = 0.0553;
 	data->ray->rotspeed = 0.0553;
 	get_player_pos(data);
 	get_player_dir_ns(data);
 	get_player_dir_we(data);
 	get_texture_addr(data);
+	return (0);
 }

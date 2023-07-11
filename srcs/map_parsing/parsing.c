@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 11:12:47 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:07:39 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static t_map	*map_init(void)
 	map->floor = (255 << 24);
 	map->ceiling = (255 << 24);
 	map->map = NULL;
+	map->img_from_xpm = NULL;
+	map->img_data = NULL;
 	return (map);
 }
 
@@ -74,12 +76,16 @@ static int	data_color_filler(t_map *map, char **str_line)
 		if (!(map->floor & (255 << 24)))
 			return (-1);
 		map->floor = color_converter(str_line[1]);
+		if (map->floor == (unsigned int)-1)
+			return (-1);
 	}
 	else if (!ft_strcmp(str_line[0], "C"))
 	{
 		if (!(map->ceiling & (255 << 24)))
 			return (-1);
 		map->ceiling = color_converter(str_line[1]);
+		if (map->ceiling == (unsigned int)-1)
+			return (-1);
 	}
 	return (0);
 }
@@ -92,6 +98,8 @@ void	ft_t_map_free(t_map *map)
 	free(map->texture_ea);
 	double_free(map->map);
 	free(map);
+	free(map->img_from_xpm);
+	free(map->img_data);
 }
 
 static int	data_filler(t_map *map, char **str_line)
@@ -170,8 +178,8 @@ static void	map_filler(t_map *map, t_list *lst)
 		ft_strreverse(map->map[i]);
 		tmp_lst = tmp_lst->next;
 		i++;
+		map->map[i] = NULL;
 	}
-	map->map[i] = NULL;
 	map_replacer(map);
 }
 
@@ -189,6 +197,7 @@ t_map	*parser(int fd)
 	map = map_init();
 	if (!map || fd < 0)
 	{
+		write(1, "ERROR\n", 6);
 		perror("cub3D");
 		return (NULL);
 	}
@@ -212,7 +221,7 @@ t_map	*parser(int fd)
 			return (NULL);
 		if (temp[2] || data_filler(map, temp) || data_color_filler(map, temp))
 		{
-			write(2, "ERROR MAP\n", 10);
+			write(2, "ERROR\nWrong MAP\n", 16);
 			ft_t_map_free(map);
 			return (NULL);
 		}
@@ -222,7 +231,8 @@ t_map	*parser(int fd)
 	line_tmp = ft_strtrim(line, "\n");
 	if (!line_tmp)
 	{
-		write(2, "ERROR MAP\n", 10);
+		write(2, "ERROR\n", 6);
+		perror("cub3D");
 		ft_t_map_free(map);
 		return (NULL);
 	}
@@ -246,7 +256,8 @@ t_map	*parser(int fd)
 	map_filler(map, lst);
 	if (check_parsing(map) == -1)
 	{
-		write(2, "ERROR MAP\n", 10);
+		write(1, "ERROR\n", 6);
+		perror("cub3D");
 		ft_t_map_free(map);
 		return (NULL);
 	}
