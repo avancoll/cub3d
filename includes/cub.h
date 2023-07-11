@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 15:13:37 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:33:50 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_ray
 	int		draw_end;
 	int		tex_x;
 	int		tex_y;
+	double	wall_x;
 	double	step;
 	double	tex_pos;
 	double	movespeed;
@@ -135,7 +136,6 @@ int			exec_move(t_mlx_data *data);
 int			ft_close(t_mlx_data *data);
 int			init_player(t_mlx_data *data);
 void		get_texture_addr(t_mlx_data *data);
-
-int					map_init(t_mlx_data *map);
+int			map_init(t_mlx_data *map);
 
 #endif
