@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/10 21:29:26 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:00:03 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,27 @@ int	open_map(char *str)
 	return (fd);
 }
 
+int	init_key(t_mlx_data *data)
+{
+	data->key = malloc(sizeof(t_key));
+	if (!data->key)
+		return (1);
+	data->key->mv_forward = 0;
+	data->key->mv_backward = 0;
+	data->key->mv_left = 0;
+	data->key->mv_right = 0;
+	data->key->rot_left = 0;
+	data->key->rot_right = 0;
+	return (0);
+}
+
+int	display_error(t_mlx_data *data)
+{
+	write(2, "Error\n", 6);
+	ft_close(data);
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx_data	data;
@@ -58,9 +79,11 @@ int	main(int argc, char **argv)
 	data.map = parser(open_map(argv[1]));
 	if (!data.map)
 		return (1);
-	mlx_handler(&data);
-	init_player(&data);
-	data.key = malloc(sizeof(t_key));
+	init_mlx(&data);
+	if (init_player(&data))
+		return (display_error(&data));
+	if (init_key(&data))
+		return (display_error(&data));
 	mlx_hook(data.win_ptr, ON_DESTROY, 0, ft_close, &data);
 	mlx_hook(data.win_ptr, ON_KEYUP, 0, key_released, &data);
 	mlx_hook(data.win_ptr, ON_KEYDOWN, 0, key_pressed, &data);

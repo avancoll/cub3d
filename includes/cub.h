@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/10 21:28:34 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:59:28 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,12 +128,12 @@ typedef struct s_mlx_data
 }			t_mlx_data;
 
 void		mlx_put_pixel(t_mlx_data *data, int x, int y, int color);
-void		mlx_handler(t_mlx_data *data);
+void		init_mlx(t_mlx_data *data);
 int			key_pressed(int keycode, t_mlx_data *data);
 int			key_released(int keycode, t_mlx_data *data);
 int			exec_move(t_mlx_data *data);
 int			ft_close(t_mlx_data *data);
-void		init_player(t_mlx_data *data);
+int			init_player(t_mlx_data *data);
 void		get_texture_addr(t_mlx_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 17:26:20 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 12:37:53 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:59:19 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	mlx_put_pixel(t_mlx_data *data, int x, int y, int color)
 	}
 }
 
-
-void	mlx_handler(t_mlx_data *data)
+void	init_mlx(t_mlx_data *data)
 {
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, SIZE_X, SIZE_Y, "cub3D");
@@ -214,7 +213,6 @@ int	raycaster(t_mlx_data *data, t_ray *ray)
 
 int	exec_move(t_mlx_data *data)
 {
-
 	if (data->key->mv_forward == 1)
 	{
 		if (data->map->map[(int)(data->ray->pos_y)][(int)(data->ray->pos_x + data->ray->dir_x * data->ray->movespeed)] != '1')
