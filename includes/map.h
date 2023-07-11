@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:06:13 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 15:13:31 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:04:47 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,10 @@ int					parser(int fd, t_map *map);
 int					data_color_filler(t_map *map, char **str_line);
 int					map_check(t_map *map);
 int					check_parsing(t_map *map);
+int					data_filler(t_map *map, char **str_line);
+
+void				map_part(char *line, char *line_tmp, int fd, t_list **lst);
+int					header_part(char *line, char *line_tmp, int fd, t_map *map);
+void				skip_empty_lines(char **line_tmp, char *line, int fd);
 
 #endif

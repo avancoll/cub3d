@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:17:30 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 15:31:36 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:46:17 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	map_init(t_mlx_data *data)
 	data->map->img_data = NULL;
 	return (0);
 }
+
 void	color_converter_part(int *col_tmp, int *col, int *i, char **c)
 {
 	*col_tmp = ft_atoi(c[*i]);
@@ -41,6 +42,7 @@ void	color_converter_part(int *col_tmp, int *col, int *i, char **c)
 	}
 	(*i)++;
 }
+
 unsigned int	color_converter(char *str)
 {
 	char	**c;

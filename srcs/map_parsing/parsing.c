@@ -6,13 +6,13 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 15:15:03 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:04:37 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 
-static int	data_filler(t_map *map, char **str_line)
+int	data_filler(t_map *map, char **str_line)
 {
 	if (!ft_strcmp(str_line[0], "NO"))
 	{
@@ -60,6 +60,16 @@ static void	map_replacer(t_map *map)
 	}
 }
 
+static void	max_map_line_size(t_list *tmp_lst, size_t *max_len)
+{
+	while (tmp_lst)
+	{
+		if (ft_strlen(tmp_lst->content) > *max_len)
+			*max_len = ft_strlen(tmp_lst->content);
+		tmp_lst = tmp_lst->next;
+	}
+}
+
 static void	map_filler(t_map *map, t_list *lst)
 {
 	t_list	*tmp_lst;
@@ -69,12 +79,7 @@ static void	map_filler(t_map *map, t_list *lst)
 	i = 0;
 	tmp_lst = lst;
 	max_len = 0;
-	while (tmp_lst)
-	{
-		if (ft_strlen(tmp_lst->content) > max_len)
-			max_len = ft_strlen(tmp_lst->content);
-		tmp_lst = tmp_lst->next;
-	}
+	max_map_line_size(tmp_lst, &max_len);
 	map->map = (char **)malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
 	if (!map->map)
 		return ;
@@ -97,58 +102,25 @@ static void	map_filler(t_map *map, t_list *lst)
 int	parser(int fd, t_map *map)
 {
 	char	*line;
-	char	**temp;
 	char	*line_tmp;
-	int		i;
 	t_list	*lst;
+	int		ret;
 
-	i = 6;
 	lst = NULL;
+	line = NULL;
+	line_tmp = NULL;
 	if (!map || fd < 0)
 		return (OTHER_TPYE);
-	while (i-- > 0)
-	{
-		line = get_next_line(fd);
-		line_tmp = ft_strtrim(line, "\n ");
-		free(line);
-		while (ft_strlen(line_tmp) == 0)
-		{
-			free(line_tmp);
-			line = get_next_line(fd);
-			line_tmp = ft_strtrim(line, "\n ");
-			free(line);
-			if (!line_tmp)
-				break ;
-		}
-		temp = ft_split(line_tmp, ' ');
-		free(line_tmp);
-		if (!temp)
-			return (OTHER_TPYE);
-		if (temp[2] || data_filler(map, temp) || data_color_filler(map, temp))
-			return (WRONG_MAP);
-		double_free(temp);
-	}
+	ret = header_part(line, line_tmp, fd, map);
+	if (ret)
+		return (ret);
 	line = get_next_line(fd);
 	line_tmp = ft_strtrim(line, "\n");
 	if (!line_tmp)
 		return (OTHER_TPYE);
 	free(line);
-	while (ft_strlen(line_tmp) == 0)
-	{
-		free(line_tmp);
-		line = get_next_line(fd);
-		line_tmp = ft_strtrim(line, "\n");
-		free(line);
-		if (!line_tmp)
-			break ;
-	}
-	while (line_tmp)
-	{
-		ft_lstadd_back(&lst, ft_lstnew(line_tmp));
-		line = get_next_line(fd);
-		line_tmp = ft_strtrim(line, "\n");
-		free(line);
-	}
+	skip_empty_lines(&line_tmp, line, fd);
+	map_part(line, line_tmp, fd, &lst);
 	map_filler(map, lst);
 	if (check_parsing(map) == -1)
 		return (WRONG_MAP);
