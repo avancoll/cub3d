@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:59:46 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 13:32:12 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:34:39 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 static void	get_player_dir_ns(t_mlx_data *data)
 {
-	if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'N')
+	if (data->map->map
+		&& data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x]
+		== 'N')
 	{
 		data->ray->dir_x = 0;
 		data->ray->dir_y = -1;
 		data->ray->plane_x = -0.66;
 		data->ray->plane_y = 0;
 	}
-	else if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x]
+	else if (data->map->map
+		&& data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x]
 		== 'S')
 	{
 		data->ray->dir_x = 0;
@@ -33,14 +36,17 @@ static void	get_player_dir_ns(t_mlx_data *data)
 
 static void	get_player_dir_we(t_mlx_data *data)
 {
-	if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x] == 'E')
+	if (data->map->map
+		&& data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x]
+		== 'E')
 	{
 		data->ray->dir_x = -1;
 		data->ray->dir_y = 0;
 		data->ray->plane_x = 0;
 		data->ray->plane_y = 0.66;
 	}
-	else if (data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x]
+	else if (data->map->map
+		&& data->map->map[(int)data->ray->pos_y][(int)data->ray->pos_x]
 		== 'W')
 	{
 		data->ray->dir_x = 1;

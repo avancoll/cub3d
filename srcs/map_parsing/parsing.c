@@ -6,101 +6,11 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 13:37:41 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:15:03 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
-
-static t_map	*map_init(void)
-{
-	t_map	*map;
-
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (NULL);
-	map->texture_no = NULL;
-	map->texture_so = NULL;
-	map->texture_we = NULL;
-	map->texture_ea = NULL;
-	map->floor = (255 << 24);
-	map->ceiling = (255 << 24);
-	map->map = NULL;
-	map->img_from_xpm = NULL;
-	map->img_data = NULL;
-	return (map);
-}
-
-static void	color_converter_part(int *col_tmp, int *col, int *i, char **c)
-{
-	*col_tmp = ft_atoi(c[*i]);
-	if (*col_tmp > 255 || *col_tmp < 0 || *i > 2)
-		*col = -1;
-	if (*col != -1 && *i >= 0)
-	{
-		(*col) *= 256;
-		(*col) += *col_tmp;
-	}
-	(*i)++;
-}
-
-static unsigned int	color_converter(char *str)
-{
-	char	**c;
-	int		col;
-	int		col_tmp;
-	int		i;
-
-	i = 0;
-	col = 0;
-	c = ft_split(str, ',');
-	if (!c)
-		return (-1);
-	while (col != -1 && c[i])
-	{
-		if (ft_strlen(c[i]) > 3 || !is_all_digit(c[i]) || ft_strlen(c[i]) == 0)
-			col = -1;
-		else
-			color_converter_part(&col_tmp, &col, &i, c);
-	}
-	if (i < 3)
-		col = -1;
-	double_free(c);
-	return (col);
-}
-
-static int	data_color_filler(t_map *map, char **str_line)
-{
-	if (!ft_strcmp(str_line[0], "F"))
-	{
-		if (!(map->floor & (255 << 24)))
-			return (-1);
-		map->floor = color_converter(str_line[1]);
-		if (map->floor == (unsigned int)-1)
-			return (-1);
-	}
-	else if (!ft_strcmp(str_line[0], "C"))
-	{
-		if (!(map->ceiling & (255 << 24)))
-			return (-1);
-		map->ceiling = color_converter(str_line[1]);
-		if (map->ceiling == (unsigned int)-1)
-			return (-1);
-	}
-	return (0);
-}
-
-void	ft_t_map_free(t_map *map)
-{
-	free(map->texture_no);
-	free(map->texture_so);
-	free(map->texture_we);
-	free(map->texture_ea);
-	double_free(map->map);
-	free(map);
-	free(map->img_from_xpm);
-	free(map->img_data);
-}
 
 static int	data_filler(t_map *map, char **str_line)
 {
@@ -184,9 +94,8 @@ static void	map_filler(t_map *map, t_list *lst)
 	map_replacer(map);
 }
 
-t_map	*parser(int fd)
+int	parser(int fd, t_map *map)
 {
-	t_map	*map;
 	char	*line;
 	char	**temp;
 	char	*line_tmp;
@@ -195,13 +104,8 @@ t_map	*parser(int fd)
 
 	i = 6;
 	lst = NULL;
-	map = map_init();
 	if (!map || fd < 0)
-	{
-		write(2, "ERROR\n", 6);
-		perror("cub3D");
-		return (NULL);
-	}
+		return (OTHER_TPYE);
 	while (i-- > 0)
 	{
 		line = get_next_line(fd);
@@ -219,24 +123,15 @@ t_map	*parser(int fd)
 		temp = ft_split(line_tmp, ' ');
 		free(line_tmp);
 		if (!temp)
-			return (NULL);
+			return (OTHER_TPYE);
 		if (temp[2] || data_filler(map, temp) || data_color_filler(map, temp))
-		{
-			write(2, "ERROR\nWrong MAP\n", 16);
-			ft_t_map_free(map);
-			return (NULL);
-		}
+			return (WRONG_MAP);
 		double_free(temp);
 	}
 	line = get_next_line(fd);
 	line_tmp = ft_strtrim(line, "\n");
 	if (!line_tmp)
-	{
-		write(2, "ERROR\n", 6);
-		perror("cub3D");
-		ft_t_map_free(map);
-		return (NULL);
-	}
+		return (OTHER_TPYE);
 	free(line);
 	while (ft_strlen(line_tmp) == 0)
 	{
@@ -256,11 +151,6 @@ t_map	*parser(int fd)
 	}
 	map_filler(map, lst);
 	if (check_parsing(map) == -1)
-	{
-		write(2, "ERROR\nWrong MAP\n", 16);
-		perror("cub3D");
-		ft_t_map_free(map);
-		return (NULL);
-	}
-	return (map);
+		return (WRONG_MAP);
+	return (0);
 }

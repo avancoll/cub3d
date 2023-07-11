@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.s19.be>         +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:06:13 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/10 21:23:47 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:13:31 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,14 @@
 
 # include "get_next_line.h"
 # include "libft.h"
-# include <stdio.h>
 # include <fcntl.h>
+# include <stdio.h>
+
+enum e_error
+{
+	WRONG_MAP = 1,
+	OTHER_TPYE
+};
 
 typedef struct s_map
 {
@@ -35,8 +41,12 @@ typedef struct s_map
 	int				tex_height;
 }					t_map;
 
+unsigned int		color_converter(char *str);
 void				ft_t_map_free(t_map *map);
-t_map				*parser(int fd);
+void				color_converter_part(int *col_tmp, int *col, int *i,
+						char **c);
+int					parser(int fd, t_map *map);
+int					data_color_filler(t_map *map, char **str_line);
 int					map_check(t_map *map);
 int					check_parsing(t_map *map);
 

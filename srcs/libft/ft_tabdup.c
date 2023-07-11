@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:21:21 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/06 14:38:40 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:16:59 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ void	double_free(char **tab)
 
 	i = 0;
 	while (tab && tab[i])
-		free(tab[i++]);
+	{
+		free(tab[i]);
+		tab[i++] = NULL;
+	}
 	free(tab);
+	tab = NULL;
 }
 
 char	**ft_tabdup(char **tab)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 14:29:15 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:15:30 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,34 @@ int	init_key(t_mlx_data *data)
 
 int	free_all(t_mlx_data *data)
 {
-	if (data->map)
-		ft_t_map_free(data->map);
+	ft_t_map_free(data->map);
 	if (data->key)
+	{
 		free(data->key);
+		data->key = NULL;
+	}
 	return (1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_mlx_data	data;
+	int			fd;
+	int			ret;
 
 	if (argc != 2 || filename_checker(argv[1]))
 		return (1);
-	data.map = map_init();
-	parser(open_map(argv[1], &(data).map));
+	if (map_init(&data))
+		return (1);
+	if (!data.map)
+	{
+		return (1);
+	}
+	fd = open_map(argv[1]);
+	ret = parser(fd, data.map);
+	if (ret)
+		return (free_all(&data));
+	close(fd);
 	if (!data.map)
 		return (free_all(&data));
 	init_mlx(&data);

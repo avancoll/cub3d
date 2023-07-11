@@ -25,6 +25,7 @@ LIBFT		= ft_memcpy.c ft_split.c ft_strcmp.c ft_strdup.c ft_strlen.c \
 				ft_strreverse.c \
 
 MAP			= parsing.c check_parsing.c check_map.c map_to_data.c \
+				parsing_part.c \
 
 # ============================================================================= #
 
@@ -52,8 +53,8 @@ LDFLAGS		= -lmlx -framework OpenGL -framework AppKit
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror -I./includes/ -O3
-#  -g3 -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -I./includes/ -g3 -fsanitize=address -O3
+#  
 RM			= rm -f
 
 .c.o:

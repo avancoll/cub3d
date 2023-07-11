@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 14:04:56 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 13:20:43 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 15:19:26 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,13 @@ static int	file_exist(t_map *map)
 	int	fd[4];
 
 	fd[0] = open(map->texture_no, O_RDONLY);
+	close(fd[0]);
 	fd[1] = open(map->texture_so, O_RDONLY);
+	close(fd[1]);
 	fd[2] = open(map->texture_ea, O_RDONLY);
+	close(fd[2]);
 	fd[3] = open(map->texture_we, O_RDONLY);
+	close(fd[3]);
 	if (fd[0] < 0 || fd[1] < 0 || fd[2] < 0 || fd[3] < 0)
 		return (-1);
 	return (0);
