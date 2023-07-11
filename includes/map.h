@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:06:13 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 17:04:47 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:00:25 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ unsigned int		color_converter(char *str);
 void				ft_t_map_free(t_map *map);
 void				color_converter_part(int *col_tmp, int *col, int *i,
 						char **c);
-int					parser(int fd, t_map *map);
+int					parser(int fd, t_map *map, int ret);
 int					data_color_filler(t_map *map, char **str_line);
 int					map_check(t_map *map);
 int					check_parsing(t_map *map);

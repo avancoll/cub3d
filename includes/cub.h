@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 17:19:52 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:53:27 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int			exec_move(t_mlx_data *data);
 int			ft_close(t_mlx_data *data);
 int			init_player(t_mlx_data *data);
 void		get_texture_addr(t_mlx_data *data);
-int			map_init(t_mlx_data *map);
+int			init_map(t_mlx_data *map);
 int			init_key(t_mlx_data *data);
 void		init_mlx(t_mlx_data *data);
 int			filename_checker(char *str);
@@ -144,5 +144,6 @@ int			free_all(t_mlx_data *data);
 int			get_tex_color(t_mlx_data *data, int x, int y);
 void		init_floor_ceiling(t_mlx_data *data);
 int			raycaster(t_mlx_data *data, t_ray *ray);
+int			display_error(t_mlx_data *data, int errnum);
 
 #endif

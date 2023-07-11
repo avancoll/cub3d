@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_part.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:17:30 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 15:46:17 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:40:12 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	map_init(t_mlx_data *data)
+int	init_map(t_mlx_data *data)
 {
 	data->key = NULL;
 	data->map = malloc(sizeof(t_map));

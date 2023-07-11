@@ -53,7 +53,7 @@ LDFLAGS		= -lmlx -framework OpenGL -framework AppKit
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror -I./includes/ -g3 -fsanitize=address #-O3
+CFLAGS		= -Wall -Wextra -Werror -I./includes/ -g3 -fsanitize=address -O3
 
 RM			= rm -f
 

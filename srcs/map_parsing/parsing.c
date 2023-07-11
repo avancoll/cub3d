@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 17:04:37 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:01:57 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,11 @@ static void	map_filler(t_map *map, t_list *lst)
 	map_replacer(map);
 }
 
-int	parser(int fd, t_map *map)
+int	parser(int fd, t_map *map, int ret)
 {
 	char	*line;
 	char	*line_tmp;
 	t_list	*lst;
-	int		ret;
 
 	lst = NULL;
 	line = NULL;

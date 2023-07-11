@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 17:23:55 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:00:47 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	open_map(char *str)
 	if (fd == -1)
 	{
 		perror("cub3D");
-		return (1);
+		return (-1);
 	}
 	return (fd);
 }
@@ -31,16 +31,18 @@ int	main(int argc, char **argv)
 	int			fd;
 	int			ret;
 
-	if (argc != 2 || filename_checker(argv[1]))
-		return (1);
-	if (map_init(&data))
-		return (1);
-	if (!data.map)
-		return (1);
+	if (argc != 2)
+		return (display_error(NULL, 1));
+	if (filename_checker(argv[1]))
+		return (display_error(NULL, 2));
+	if (init_map(&data))
+		return (display_error(NULL, 3));
 	fd = open_map(argv[1]);
-	ret = parser(fd, data.map);
+	if (fd == -1)
+		return (display_error(&data, 4));
+	ret = parser(fd, data.map, 0);
 	if (ret)
-		return (free_all(&data));
+		return (display_error(&data, ret));      //return (free_all(&data)); ici il faut close(fd) attention !
 	close(fd);
 	if (!data.map)
 		return (free_all(&data));
