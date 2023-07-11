@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 17:59:46 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 13:03:41 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:32:12 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,7 @@ int	init_player(t_mlx_data *data)
 	get_player_dir_ns(data);
 	get_player_dir_we(data);
 	get_texture_addr(data);
+	if (!data->map->img_data)
+		return (-1);
 	return (0);
 }

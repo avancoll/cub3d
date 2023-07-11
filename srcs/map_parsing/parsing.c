@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 13:07:39 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:37:41 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ static void	map_filler(t_map *map, t_list *lst)
 		i++;
 		map->map[i] = NULL;
 	}
+	ft_lstclear(&lst, free);
 	map_replacer(map);
 }
 
@@ -197,7 +198,7 @@ t_map	*parser(int fd)
 	map = map_init();
 	if (!map || fd < 0)
 	{
-		write(1, "ERROR\n", 6);
+		write(2, "ERROR\n", 6);
 		perror("cub3D");
 		return (NULL);
 	}
@@ -256,7 +257,7 @@ t_map	*parser(int fd)
 	map_filler(map, lst);
 	if (check_parsing(map) == -1)
 	{
-		write(1, "ERROR\n", 6);
+		write(2, "ERROR\nWrong MAP\n", 16);
 		perror("cub3D");
 		ft_t_map_free(map);
 		return (NULL);
