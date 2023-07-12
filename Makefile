@@ -53,7 +53,7 @@ LDFLAGS		= -lmlx -framework OpenGL -framework AppKit
 
 CC			= gcc
 
-CFLAGS		= -Wall -Wextra -Werror -I./includes/
+CFLAGS		= -Wall -Wextra -Werror -I./includes/ -O3
 
 RM			= rm -f
 
