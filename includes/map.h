@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 00:06:13 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 18:00:25 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:04:55 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 enum e_error
 {
-	WRONG_MAP = 1,
-	OTHER_TPYE
+	OTHER_TPYE = 4,
+	WRONG_MAP
 };
 
 typedef struct s_map
@@ -54,5 +54,6 @@ int					data_filler(t_map *map, char **str_line);
 void				map_part(char *line, char *line_tmp, int fd, t_list **lst);
 int					header_part(char *line, char *line_tmp, int fd, t_map *map);
 void				skip_empty_lines(char **line_tmp, char *line, int fd);
+void				skip_empty_lines_map(char **line_tmp, char *line, int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:02:16 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 17:02:47 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:40:59 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,21 @@ void	skip_empty_lines(char **line_tmp, char *line, int fd)
 		free(*line_tmp);
 		*line_tmp = NULL;
 		line = get_next_line(fd);
-		*line_tmp = ft_strtrim(line, "\n ");
+		*line_tmp = ft_strtrim(line, "\n\t ");
+		free(line);
+		if (!*line_tmp)
+			break ;
+	}
+}
+
+void	skip_empty_lines_map(char **line_tmp, char *line, int fd)
+{
+	while (ft_strlen(*line_tmp) == 0)
+	{
+		free(*line_tmp);
+		*line_tmp = NULL;
+		line = get_next_line(fd);
+		*line_tmp = ft_strtrim(line, "\n\t");
 		free(line);
 		if (!*line_tmp)
 			break ;

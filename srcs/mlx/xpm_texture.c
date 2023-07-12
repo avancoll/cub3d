@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:32:44 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 13:30:38 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:43:32 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	init_texture(t_mlx_data *data)
 	if (!img[0] || !img[1] || !img[2] || !img[3])
 	{
 		free(img);
-		write(1, "ERROR\nBad xpm file\n", 19);
+		write(1, "Error\nBad xpm file\n", 19);
 		data->map->img_from_xpm = NULL;
 	}
 	else

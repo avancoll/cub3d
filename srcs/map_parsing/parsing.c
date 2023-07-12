@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 18:01:57 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:42:35 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	parser(int fd, t_map *map, int ret)
 	if (!line_tmp)
 		return (OTHER_TPYE);
 	free(line);
-	skip_empty_lines(&line_tmp, line, fd);
+	skip_empty_lines_map(&line_tmp, line, fd);
 	map_part(line, line_tmp, fd, &lst);
 	map_filler(map, lst);
 	if (check_parsing(map) == -1)

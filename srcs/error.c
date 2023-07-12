@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:15:42 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 18:18:29 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:08:01 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	display_error(t_mlx_data *data, int errnum, int fd)
 		write(2, "Wrong number of arguments\n", 26);
 	else if (errnum == 2)
 		write(2, "Wrong file extension\n", 21);
-	else if (errnum == 3)
+	else if (errnum == 3 || errnum == 4)
 		perror("cub3D");
-	else if (errnum == 4)
-		perror("cub3D");
+	else if (errnum == 5)
+		write(2, "Invalid map\n", 12);
 	if (data)
 		free_all(data);
 	if (fd != -1)

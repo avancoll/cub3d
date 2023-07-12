@@ -1,7 +1,7 @@
-NO ./textures/metalwall.xpm
-WE ./textures/east.xpm
-SO ./textures/West.xpm
-EA ./textures/north.xpm
+NO ./textures/bluestone.xpm
+SO ./textures/colorstone.xpm
+WE ./textures/greystone.xpm
+EA ./textures/redbrick.xpm
 
 C 0,0,0
 F 255,255,255
