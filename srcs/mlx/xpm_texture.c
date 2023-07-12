@@ -6,7 +6,7 @@
 /*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:32:44 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/12 17:43:32 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:55:35 by jusilanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ static void	init_texture(t_mlx_data *data)
 {
 	void **const	img = malloc(sizeof(void *) * 4);
 
+	if (!img)
+	{
+		write(1, "Error\nMalloc failed\n", 20);
+		data->map->img_from_xpm = NULL;
+		return ;
+	}
 	img[0] = mlx_xpm_file_to_image(data->mlx_ptr, data->map->texture_no,
 			&data->map->tex_width, &data->map->tex_height);
 	img[1] = mlx_xpm_file_to_image(data->mlx_ptr, data->map->texture_so,
@@ -42,7 +48,8 @@ void	get_texture_addr(t_mlx_data *data)
 	i = 0;
 	data->size_line = SIZE_X * 4;
 	init_texture(data);
-	while (i < 4 && data->map->img_from_xpm && data->map->img_from_xpm[i])
+	while (img_data && i < 4 && data->map->img_from_xpm
+		&& data->map->img_from_xpm[i])
 	{
 		img_data[i] = mlx_get_data_addr(data->map->img_from_xpm[i],
 				&data->bits_pixel,
@@ -50,7 +57,7 @@ void	get_texture_addr(t_mlx_data *data)
 				&data->endian);
 		i++;
 	}
-	if (!data->map->img_from_xpm)
+	if (img_data && !data->map->img_from_xpm)
 	{
 		free(img_data);
 		data->map->img_data = NULL;
