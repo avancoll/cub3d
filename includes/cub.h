@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:48:22 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/11 18:05:42 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:24:43 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int			key_released(int keycode, t_mlx_data *data);
 int			exec_move(t_mlx_data *data);
 int			ft_close(t_mlx_data *data);
 int			init_player(t_mlx_data *data);
+int			init_texture(t_mlx_data *data);
 void		get_texture_addr(t_mlx_data *data);
 int			init_map(t_mlx_data *map);
 int			init_key(t_mlx_data *data);

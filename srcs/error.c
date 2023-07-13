@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:15:42 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/13 14:22:47 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:25:56 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	display_error(t_mlx_data *data, int errnum, int fd)
 		write(2, "Invalid map\n", 12);
 	else if (errnum == 6)
 		write(2, "Malloc failed\n", 14);
+	else if (errnum == 7)
+		write(1, "Bad xpm file\n", 13);
 	if (data)
 		free_all(data);
 	if (fd != -1)

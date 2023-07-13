@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/13 14:22:54 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:09:11 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int	main(int argc, char **argv)
 		return (display_error(&data, ret, fd));
 	close(fd);
 	init_mlx(&data);
-	if (init_player(&data))
-		return (display_error(&data, 6, -1));
+	ret = init_player(&data);
+	if (ret)
+		return (display_error(&data, ret, -1));
 	if (init_key(&data))
 		return (display_error(&data, 6, -1));
 	mlx_hook(data.win_ptr, ON_DESTROY, 0, ft_close, &data);
