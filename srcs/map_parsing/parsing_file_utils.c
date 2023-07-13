@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_file_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 17:02:16 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/12 17:40:59 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:56:56 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,23 @@ int	header_part(char *line, char *line_tmp, int fd, t_map *map)
 	return (0);
 }
 
-void	map_part(char *line, char *line_tmp, int fd, t_list **lst)
+int	map_part(char *line, char *line_tmp, int fd, t_list **lst)
 {
+	t_list	*tmp_lst;
+
 	while (line_tmp)
 	{
-		ft_lstadd_back(lst, ft_lstnew(line_tmp));
+		tmp_lst = ft_lstnew(line_tmp);
+		if (!tmp_lst)
+		{
+			ft_lstclear(lst, free);
+			free(line_tmp);
+			return (1);
+		}
+		ft_lstadd_back(lst, tmp_lst);
 		line = get_next_line(fd);
 		line_tmp = ft_strtrim(line, "\n");
 		free(line);
 	}
+	return (0);
 }

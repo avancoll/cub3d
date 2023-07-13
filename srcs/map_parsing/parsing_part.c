@@ -6,7 +6,7 @@
 /*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 14:17:30 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/11 17:40:12 by avancoll         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:25:57 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	init_map(t_mlx_data *data)
 {
 	data->key = NULL;
+	data->ray = NULL;
 	data->map = malloc(sizeof(t_map));
 	if (!data->map)
 		return (-1);

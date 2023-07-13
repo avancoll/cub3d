@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 15:56:18 by avancoll          #+#    #+#             */
-/*   Updated: 2023/07/12 16:55:45 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:22:54 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,11 @@ int	main(int argc, char **argv)
 	if (ret)
 		return (display_error(&data, ret, fd));
 	close(fd);
-	if (!data.map)
-		return (free_all(&data));
 	init_mlx(&data);
 	if (init_player(&data))
-		return (free_all(&data));
+		return (display_error(&data, 6, -1));
 	if (init_key(&data))
-		return (free_all(&data));
+		return (display_error(&data, 6, -1));
 	mlx_hook(data.win_ptr, ON_DESTROY, 0, ft_close, &data);
 	mlx_hook(data.win_ptr, ON_KEYUP, 0, key_released, &data);
 	mlx_hook(data.win_ptr, ON_KEYDOWN, 0, key_pressed, &data);

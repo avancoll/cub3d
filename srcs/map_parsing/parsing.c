@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 01:29:49 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/12 17:42:35 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:53:26 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ static void	map_replacer(t_map *map)
 	}
 }
 
-static void	max_map_line_size(t_list *tmp_lst, size_t *max_len)
+static int	max_map_line_size(t_list *tmp_lst, size_t *max_len,
+	t_map *map, t_list *lst)
 {
 	while (tmp_lst)
 	{
@@ -68,9 +69,13 @@ static void	max_map_line_size(t_list *tmp_lst, size_t *max_len)
 			*max_len = ft_strlen(tmp_lst->content);
 		tmp_lst = tmp_lst->next;
 	}
+	map->map = (char **)malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
+	if (!map->map)
+		return (1);
+	return (0);
 }
 
-static void	map_filler(t_map *map, t_list *lst)
+static int	map_filler(t_map *map, t_list *lst)
 {
 	t_list	*tmp_lst;
 	size_t	max_len;
@@ -79,24 +84,24 @@ static void	map_filler(t_map *map, t_list *lst)
 	i = 0;
 	tmp_lst = lst;
 	max_len = 0;
-	max_map_line_size(tmp_lst, &max_len);
-	map->map = (char **)malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
-	if (!map->map)
-		return ;
+	if (max_map_line_size(tmp_lst, &max_len, map, lst))
+		return (1);
 	tmp_lst = lst;
 	while (tmp_lst)
 	{
 		map->map[i] = (char *)malloc(sizeof(char) * (max_len + 1));
+		if (!map->map[i])
+			return (1);
 		ft_memset(map->map[i], '2', max_len);
 		map->map[i][max_len] = 0;
 		ft_memcpy(map->map[i], tmp_lst->content, ft_strlen(tmp_lst->content));
 		ft_strreverse(map->map[i]);
 		tmp_lst = tmp_lst->next;
-		i++;
-		map->map[i] = NULL;
+		map->map[++i] = NULL;
 	}
 	ft_lstclear(&lst, free);
 	map_replacer(map);
+	return (0);
 }
 
 int	parser(int fd, t_map *map, int ret)
@@ -119,8 +124,10 @@ int	parser(int fd, t_map *map, int ret)
 		return (OTHER_TPYE);
 	free(line);
 	skip_empty_lines_map(&line_tmp, line, fd);
-	map_part(line, line_tmp, fd, &lst);
-	map_filler(map, lst);
+	if (map_part(line, line_tmp, fd, &lst))
+		return (6);
+	if (map_filler(map, lst))
+		return (6);
 	if (check_parsing(map) == -1)
 		return (WRONG_MAP);
 	return (0);

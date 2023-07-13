@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xpm_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jusilanc <jusilanc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: avancoll <avancoll@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:32:44 by jusilanc          #+#    #+#             */
-/*   Updated: 2023/07/12 17:55:35 by jusilanc         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:54:48 by avancoll         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	init_texture(t_mlx_data *data)
 
 	if (!img)
 	{
-		write(1, "Error\nMalloc failed\n", 20);
 		data->map->img_from_xpm = NULL;
 		return ;
 	}
@@ -33,7 +32,7 @@ static void	init_texture(t_mlx_data *data)
 	if (!img[0] || !img[1] || !img[2] || !img[3])
 	{
 		free(img);
-		write(1, "Error\nBad xpm file\n", 19);
+		write(1, "Error\nBad xpm file\n", 19); // ESSAYER DE METTRE CE MSG DANS DISPLAY ERROR CAR SINON 2MSGS D'ERREUR
 		data->map->img_from_xpm = NULL;
 	}
 	else
